@@ -10,12 +10,14 @@ header_settings:
 
 menu_settings:
   menu_items:
-    - title: 'Latest'
-      url: '/'
+    - title: 'Language'
+      url: '/language'
+    - title: 'Technology'
+      url: '/technology'
     - title: 'Projects'
       url: '/projects/'
-    - title: 'About'
-      url: '/about'
+    - title: 'Art'
+      url: '/art'
     - title: 'Contact'
       url: '/contact'
 
