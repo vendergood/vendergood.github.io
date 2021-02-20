@@ -16,8 +16,8 @@ menu_settings:
       url: '/technology'
     - title: 'Projects'
       url: '/projects/'
-    - title: 'Art'
-      url: '/art'
+    - title: 'Arts'
+      url: '/arts'
     - title: 'Contact'
       url: '/contact'
 
