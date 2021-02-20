@@ -12,8 +12,8 @@ menu_settings:
   menu_items:
     - title: 'Languages'
       url: '/languages'
-    - title: 'Technology'
-      url: '/technology'
+    - title: 'IT Studies'
+      url: '/it-studies'
     - title: 'Projects'
       url: '/projects/'
     - title: 'Arts'
