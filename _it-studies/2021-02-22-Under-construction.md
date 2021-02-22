@@ -1,11 +1,11 @@
 ---
-title: '404'
+title: 'Under Construction'
 subtitle: '블로그 공사중입니다'
 date: 2021-02-21 23:32:54
-featured_image: '/images/chinese.png'
+featured_image: '/images/under-construction.jpg'
 ---
 
-![](/images/chinese.png)
+![](/images/under-construction.jpg)
 
 ## Demo content
 
