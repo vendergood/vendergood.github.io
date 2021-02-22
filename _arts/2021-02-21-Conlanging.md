@@ -1,6 +1,6 @@
 ---
 title: 'Conlanging'
-subtitle: '진행중 : Lingua Ignota Nova'
+subtitle: '예술을 위한 새로운 언어 만들기'
 date: 2021-02-21 23:32:54
 featured_image: '/images/conlanging.jpg'
 ---
