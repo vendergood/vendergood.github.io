@@ -1,5 +1,5 @@
 ---
-title: 'CONLANGS'
+title: 'Conlanging'
 subtitle: '진행중 : Lingua Ignota Nova'
 date: 2021-02-22 23:32:54
 featured_image: '/images/demo/demo-square.jpg'
