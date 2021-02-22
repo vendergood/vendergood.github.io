@@ -10,10 +10,19 @@ collections:
   posts:
     output: true
     permalink: /blog/:slug
+  languages:
+    output: true
+    permalink: /language/:slug
+  it-studies:
+    output: true
+    permalink: /it-study/:slug    
   projects:
     output: true
     permalink: /project/:slug
-
+  arts:
+    output: true
+    permalink: /art/:slug
+    
 defaults:
   -
     scope:
@@ -35,9 +44,27 @@ defaults:
   -
     scope:
       path: ""
+      type: "languages"
+    values:
+      layout: "language"
+  -
+    scope:
+      path: ""
+      type: "it-studies"
+    values:
+      layout: "it-study"
+  -
+    scope:
+      path: ""
       type: "projects"
     values:
       layout: "project"
+  -
+    scope:
+      path: ""
+      type: "arts"
+    values:
+      layout: "art"      
 
 markdown: kramdown
 
