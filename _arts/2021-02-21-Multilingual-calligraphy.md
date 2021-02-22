@@ -2,10 +2,10 @@
 title: 'Multilingual calligraphy'
 subtitle: '다양한 언어들로 그리는 캘리그라피'
 date: 2021-02-21 23:32:54
-featured_image: '/images/demo/demo-square.jpg'
+featured_image: '/images/caligraphy.jpg'
 ---
 
-![](/images/demo/demo-landscape.jpg)
+![](/images/caligraphy.jpg)
 
 ## Demo content
 
