@@ -1,6 +1,6 @@
 ---
 title: 'Korean calligraphy'
-subtitle: '한글을 그리는 캘리그라피'
+subtitle: '한글로 그리는 캘리그라피'
 date: 2021-02-21 23:32:54
 featured_image: '/images/demo/demo-square.jpg'
 ---
