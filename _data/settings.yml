@@ -11,13 +11,13 @@ header_settings:
 menu_settings:
   menu_items:
     - title: 'Languages'
-      url: '/languages'
+      url: '/language/'
     - title: 'IT Studies'
-      url: '/it-studies'
+      url: '/it-study/'
     - title: 'Projects'
-      url: '/projects/'
+      url: '/project/'
     - title: 'Arts'
-      url: '/'
+      url: '/art/'
 
 grid_settings:
   grid_spacing: 10
