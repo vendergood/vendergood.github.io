@@ -17,7 +17,7 @@ menu_settings:
     - title: 'Projects'
       url: '/projects/'
     - title: 'Arts'
-      url: '/arts'
+      url: '/'
 
 grid_settings:
   grid_spacing: 10
