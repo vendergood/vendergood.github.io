@@ -12,16 +12,16 @@ collections:
     permalink: /:slug
   languages:
     output: true
-    permalink: /language/:slug
+    permalink: /languages/:slug
   it-studies:
     output: true
-    permalink: /it-study/:slug    
+    permalink: /it-studies/:slug    
   projects:
     output: true
-    permalink: /project/:slug
+    permalink: /projects/:slug
   arts:
     output: true
-    permalink: /art/:slug
+    permalink: /arts/:slug
     
 defaults:
   -
