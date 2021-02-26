@@ -21,18 +21,18 @@ featured_image: /images/demo/demo-landscape.jpg
 
 	<div class="wrap">
 
-		{% for project in site.projects reversed %}
+		{% for projects in site.projects reversed %}
 
 		<div class="portfolio-item">
 
-			<a class="portfolio-item__link" href="{{ project.url | relative_url }}">
+			<a class="portfolio-item__link" href="{{ projects.url | relative_url }}">
 
-				<div class="portfolio-item__image" style="background-image: url({{ project.featured_image | relative_url }});"></div>
+				<div class="portfolio-item__image" style="background-image: url({{ projects.featured_image | relative_url }});"></div>
 
 				<div class="portfolio-item__content">
 					<div class="portfolio-item__info">
-						<h2 class="portfolio-item__title">{{ project.title }}</h2>
-						<p class="portfolio-item__subtitle">{{ project.subtitle }}</p>
+						<h2 class="portfolio-item__title">{{ projects.title }}</h2>
+						<p class="portfolio-item__subtitle">{{ projects.subtitle }}</p>
 					</div>
 				</div>
 
