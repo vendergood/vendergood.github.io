@@ -21,18 +21,18 @@ featured_image: /images/demo/demo-landscape.jpg
 
 	<div class="wrap">
 
-		{% for language in site.languages reversed %}
+		{% for languages in site.languages reversed %}
 
 		<div class="portfolio-item">
 
-			<a class="portfolio-item__link" href="{{ language.url | relative_url }}">
+			<a class="portfolio-item__link" href="{{ languages.url | relative_url }}">
 
-				<div class="portfolio-item__image" style="background-image: url({{ language.featured_image | relative_url }});"></div>
+				<div class="portfolio-item__image" style="background-image: url({{ languages.featured_image | relative_url }});"></div>
 
 				<div class="portfolio-item__content">
 					<div class="portfolio-item__info">
-						<h2 class="portfolio-item__title">{{ language.title }}</h2>
-						<p class="portfolio-item__subtitle">{{ language.subtitle }}</p>
+						<h2 class="portfolio-item__title">{{ languages.title }}</h2>
+						<p class="portfolio-item__subtitle">{{ languages.subtitle }}</p>
 					</div>
 				</div>
 
