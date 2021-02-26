@@ -1,5 +1,5 @@
 ---
-title: 'English calligraphy'
+title: 'Latin alphabet calligraphy'
 subtitle: '영문으로 그리는 캘리그라피'
 date: 2021-02-20 23:32:54
 featured_image: '/images/under-construction.jpg'
