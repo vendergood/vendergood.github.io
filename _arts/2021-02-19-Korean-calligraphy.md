@@ -1,5 +1,5 @@
 ---
-title: 'Hangul calligraphy'
+title: 'Korean calligraphy'
 subtitle: '한글로 그리는 캘리그라피'
 date: 2021-02-19 23:32:54
 featured_image: '/images/under-construction.jpg'
