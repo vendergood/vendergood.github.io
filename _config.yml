@@ -46,25 +46,25 @@ defaults:
       path: ""
       type: "languages"
     values:
-      layout: "language"
+      layout: "languages"
   -
     scope:
       path: ""
       type: "it-studies"
     values:
-      layout: "it-study"
+      layout: "it-studies"
   -
     scope:
       path: ""
       type: "projects"
     values:
-      layout: "project"
+      layout: "projects"
   -
     scope:
       path: ""
       type: "arts"
     values:
-      layout: "art"      
+      layout: "arts"      
 
 markdown: kramdown
 
