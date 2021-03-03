@@ -25,7 +25,7 @@ grid_settings:
 contact_settings:
   form_action: 'https://formspree.io/f/moqporwo'
   confirmation_url: '/thanks'
-  email_subject: 'Contact form submission'
+  email_subject: 'New submission from PSH Email contact form'
   send_button_text: 'Send Message'
 
 social_settings:
