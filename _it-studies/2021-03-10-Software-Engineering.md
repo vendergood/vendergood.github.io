@@ -1,7 +1,7 @@
 ---
 title: 'Software Engineering'
 subtitle: '소프트웨어공학 관련 공부한 내용들'
-date: 2021-02-21 23:32:54
+date: 2021-03-10 00:00:00
 featured_image: '/images/under-construction.jpg'
 ---
 
