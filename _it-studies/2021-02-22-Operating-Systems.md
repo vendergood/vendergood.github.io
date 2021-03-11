@@ -1,6 +1,6 @@
 ---
-title: 'Under construction'
-subtitle: '블로그 공사중입니다'
+title: 'Operating Systems'
+subtitle: '운영체제 및 운영체제 랩 공부 내용들'
 date: 2021-02-21 23:32:54
 featured_image: '/images/under-construction.jpg'
 ---
