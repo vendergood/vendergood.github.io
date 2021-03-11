@@ -1,11 +1,11 @@
 ---
 title: 'English calligraphy'
 subtitle: '영문으로 그리는 캘리그라피'
-date: 2021-02-20 23:32:54
-featured_image: '/images/under-construction.jpg'
+date: 2021-03-10 00:00:00
+featured_image: '/images/blank.jpg'
 ---
 
-![](/images/under-construction.jpg)
+![](/images/blank.jpg)
 
 ## Demo content
 
