@@ -1,6 +1,6 @@
 ---
-title: 'Spanish'
-subtitle: '스페인어 관련 공부한 내용들'
+title: 'Vietnamese'
+subtitle: '베트남어 관련 공부한 내용들'
 date: 2021-03-07 00:00:00
 featured_image: '/images/china.jpg'
 ---
