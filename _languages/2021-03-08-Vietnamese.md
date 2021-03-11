@@ -1,7 +1,7 @@
 ---
 title: 'Vietnamese'
 subtitle: '베트남어 관련 공부한 내용들'
-date: 2021-03-11 23:32:54
+date: 2021-03-08 00:00:00
 featured_image: '/images/china.jpg'
 ---
 
