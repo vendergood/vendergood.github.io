@@ -1,6 +1,6 @@
 ---
-title: 'Operating Systems'
-subtitle: '운영체제 및 운영체제 랩 공부한 내용들'
+title: 'Digital Logics'
+subtitle: '디지털 논리회로 관련 공부한 내용들'
 date: 2021-02-21 23:32:54
 featured_image: '/images/under-construction.jpg'
 ---
