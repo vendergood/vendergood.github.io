@@ -1,11 +1,11 @@
 ---
 title: 'Conlanging'
 subtitle: '예술을 위한 새로운 언어 만들기'
-date: 2021-02-21 23:32:54
-featured_image: '/images/conlanging.jpg'
+date: 2021-03-08 00:00:00
+featured_image: '/images/under-construction.jpg'
 ---
 
-![](/images/conlanging.jpg)
+![](/images/under-construction.jpg)
 
 ## Demo content
 
