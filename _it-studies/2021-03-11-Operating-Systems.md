@@ -482,7 +482,7 @@ Process가 시작이 된 후에는, Process는 여러가지의 State를 갖는�
  
 * Ready : 현재 이 Process가 실행할 준비가 다 되었지만, 실행을 안하고 기다리고 있는 state이다. 이 Process가 실행할 준비가 다 되었음에도 실행을 하지 않는 이유는, 여러가지 이유가 있긴 하지만 보통은 현재 CPU를 다른 Process가 사용하고 있는 경우에 대체로 Ready state이다.
  
-* Blocked : 해당 Process가 실행을 하고 그 결과를 기다리고 있는 state이다. 따라서 그 실행하고 있던 뭔가가 끝나기 전까지는, 실행이 될 수 없는 그런 state를 말한다. 
+* Blocked : 해당 Process가 실행을 하고 그 결과를 기다리고 있는 state이다. 따라서 그 실행하고 있던 뭔가가 끝나기 전까지는, 실행이 될 수 없는 그런 state를 말한다. I/O request등을 하는 경우, state가 Blocked가 된다. 예를들어, 파일을 읽고 수정하는 프로그램의 경우 open() 함수를 실행해야 하기 때문에 I/O request를 하고 state가 Blocked 상태가 된다.
 
 ### Process State Transitions
 
