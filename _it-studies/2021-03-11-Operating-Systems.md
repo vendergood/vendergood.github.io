@@ -102,10 +102,10 @@ Time-sharing systems을 실행을 하기 위해서는 더 복잡한 OS가 필요
 
 프로그램이 실행될때, 무슨 일이 일어날까? 프로그램이 시작된다는 것은 다음의 Instructions을 하나하나 연속적으로 실행한다는 것이다.
 
-1. Fetch라는 과정을 통해서, 메모리에서 Instructions을 하나 가져온다.
-2. 그 다음, Decode를 하여 이 Instructions이 과연 어떤 Instructions인지를 해석을 한다.
-3. 그리고 나서 Instructions를 Decode하여 해석한 결과에 따라 Instructions을 Execute 한다.
-4. 한 Instructions이 끝난 후, 다른 Instructions에 대해 ①~③ 과정을 무한 반복한다.
+1. Fetch라는 과정을 통해서, 메모리에서 Instruction을 하나 가져온다.
+2. 그 다음, Decoding을 하여 이 Instruction이 과연 어떤 Instruction인지를 해석을 한다.
+3. 그리고 나서 Instruction를 Decode하여 해석한 결과에 따라 Instruction을 Execute 한다.
+4. 한 Instruction이 끝난 후, 다른 Instruction에 대해 ①~③ 과정을 무한 반복한다.
 
 이런 과정 내에서 OS는 컴퓨터 시스템이 올바르고 효율적으로 작동할 수 있게 도와주는 역할을 한다.
 
