@@ -521,6 +521,21 @@ exec()는 fork()로 Child Process 를 만든 후 그 Process를 새로운 독립
 
 fork() 와 exec()가 분리된 이유는, 리눅스를 생각하면 간단하다. 리눅스 OS 입장에서 Shell를 실행해도 결국 Shell을 띄었을때 다른 프로그램을 실행한다. Shell도 하나의 Process이다. 즉, 우리가 명령프롬프트에 실행파일을 실행하는 것과 비슷한 이치이다.
 
+------------- 
+## Direct Execution
+
+CPU Virtualization의 중요한 Mechanism인 Limited Direct Execution에 대해서 알아보자. 
+
+OS는 어떻게 하면 CPU Virtualization를 효율적으로 제어할 수 있는가? 이는 time sharing을 통해서 physical CPU를 공유해야 한다.
+
+그런데 time sharing을 적용해도, 실행속도의 느려짐을 최대한 억제하면서 동시에 적당한 순간에 시스템의 제어권을 획득할 수 있는 그런 기법이 필요하다.
+
+### Direct Execution
+
+https://velog.io/@dojun527/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9COS-MechanismLimited-Direct-Execution
+
+------------- 
+## 
 
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
