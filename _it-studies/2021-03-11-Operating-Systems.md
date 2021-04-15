@@ -9,7 +9,7 @@ featured_image: '/images/under-construction.jpg'
 
 
 *****
-## History of OS
+## Intro
  
 우선 옛날얘기 부터 해보자. 사실 컴퓨터라는 것의 역사가 그리 길지는 않다. 1900년대 중반, 이 시기에 최초의 컴퓨터가 탄생하게 된다. 
 
