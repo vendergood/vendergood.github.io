@@ -97,6 +97,7 @@ Time-sharing systems을 실행을 하기 위해서는 더 복잡한 OS가 필요
 
 우리에게 친숙한 현대적인 멀티미디어, 인터넷, 모바일 등등의 GUI(Graphical User Interface)가 이때 발전하게 되었다.
 
+*****
 ## OS concepts
 
 프로그램이 실행될때, 무슨 일이 일어날까? 프로그램이 시작된다는 것은 다음의 Instructions을 하나하나 연속적으로 실행한다는 것이다.
@@ -415,17 +416,64 @@ Virtualiaztion, Concurrency, Persistence의 요소를 고려하여 OS가 지향�
 또한, 하나의 CPU를 동시에 여러 프로그램이 공유하는데, 이 프로그램들은 서로 Isolate 되어야 한다. 이는 해킹의 위험성 때문이다. 또한 몇날몇일 실행될 수 있게 하는 Reliability도 높아야 한다. 에너자이저 광고 처럼...
 
 ------------- 
-
 ## Process
 
-### Some History
- 
-우선 옛날얘기 부터 해보자. 사실 컴퓨터라는 것의 역사가 그리 길지는 않다. 1900년대 중반, 이 시기에 최초의 컴퓨터가 탄생하게 된다. 
+Process에 대한 내용을 살펴보자.
 
-최초의 컴퓨터가 어떻게 발전하게 되고, 그리고 그 과정에서 운영체제가 어떤 역할을 하게 되었는지 한번 살펴보자.
+### CPU Virtualization
  
+Virtualization에서 큰축은 CPU와 Memory이다. CPU Virtualization 문제의 핵심은 이 질문이다.
+
+```html
+실제 하드웨어 에는 하나의 CPU만 있는 상황인데, 어떻게 하면 다수의 프로그램들이 자신이 이 CPU를 통채로 쓸 수 있다고 여기게 하려면 어떤 Abstraction을 설계해야 하는가? 
+```
+
+저 질문에 대답할 수 있는 기술이 Time sharing, Context switch, Scheduling Policy 등의 기술이다.
+
+### The Abstraction: a Process
+
+앞에서 언급한 Time sharing, Context switch, Scheduling Policy등을 하기 위해서 중요한 concenpt은 바로 Process이다.
+
+이 Process 라는 것은, 실행되고 있는 프로그램의 instance를 말한다. 이 Process의 핵심 구성요소는 바로 Machine state이다. 
+
+Machine state라는 것은 말그대로... Process가 실행중인 프로그램이라고 하지 않았는가? Process가 열심히 실행중 일때의 그 기계의 상태를 말한다
+
+그 기계의 상태라 하면 그 기계의 Memmory에 저장된 값이나, Register(컴퓨터의 프로세서 내에서 자료를 보관하는 작은 장소)를 말한다.
  
-#### ● 1G (1945-55)
+### Process vs Program?
+
+Process와 Program은 뭐가 다를까? 
+
+어떤 instructions나 data 의 집합, 즉 명령어의 집합이 바로 Program이다. 그러다, 우리는 Program을 실행을 한다.
+
+Program을 실행을 할시, 컴퓨터의 입장에서는 OS가 Program의 instructions나 data를 CPU나 Memory로 load을 한다. 그럼 CPU는 Program의 instructions들을 실행하고, Memory는 Program의 data들을 받아들인다.
+
+이렇게 loading 되어서 실행되고 있는 Program을 우리가 Process라고 부르는 것이다.
+ 
+### Process API
+
+Process을 만들고 제어하기 위해서, OS에서는 다양한 인터페이스를 제공해준다.
+
+만들고(Create), 죽이고(Destroy), 다른 프로세스가 변화가 생기기를 기다리고(Wait), 다른 프로세스를 제어하거나(Miscellaneous Control), 프로세스의 상태를 모니터링하거나(Status)...
+
+이런 형태의 인터페이스를 제공해준다
+
+### Process Creation
+
+이런 인터페이스를 통해서 앞에서의 그 loading 과정이 이루어지게 된다.
+
+Process가 생성될때, Program의 코드가 Memory로 loading이 된다. Program이라는 것은 disk 내에 executable한 format으로 저장되어 있다.
+
+1. OS 입장에서 제일 처음하는 일들은, executable한 format으로 되어 있는 실행 파일을 불러들어서 code부분을 Memory에 먼저 올려주는 것이다. 이 과정에서 여기 data에 해당하는 Static data들이 있다. Static data들은 전역변수, 혹은 어떤 변수에 like time이 프로그램 시작부터 끝으로 지정되어 있는 그런 변수들이다. 그런 Static data들도 같이 loading을 해준다.
+2. 그 다음으로 run-time stack을 만들어 준다. stack이란 Memory space의 어떤 영역인데 local variables, function parameters, return address 등의 변수들이 저장되는 공간이다. main() 함수에 있는 argc와 argv로 부터 첫번째 stack frame을 만들어 준다.
+3. Program의 heap이 만들어 진다. heap도 Memory space의 어떤 영역인데, 주로 dynamic allocation에서 사용되는 data들을 위한 공간이다. Program 할때 쓰는 malloc()이나 free() 등의 Memory management 할때 쓰이는 그런 library들을 통해서 dynamic allocation을 할수 있지 않은가? dynamic allocation해서 사용하는 data를 위한 공간인 heap 공간을 만들어 준다.
+4. 그 다음 OS는 초기화 작업을 해준다. 대표적인 것이 (I/O) setup이다. 이 과정에서 세개의 File descriptors를 열어 준다. 전형적으로 Standard input, output, error의 File descriptor이다.
+5. 그 이후 최종적으로 방금 loading한 프로그램을 entry point, 즉 main() 함수 위치 부터 실행을 해준다. 이 과정은 OS가 CPU의 제어권을 새로만든 Process에 넘겨주는 과정이다.
+
+
+
+
+
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
