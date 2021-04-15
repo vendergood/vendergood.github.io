@@ -174,6 +174,7 @@ prompt>
 
 argv[1] 에 해당하는 A라는 문자가 반복적으로 출력이 된다. 그리고 ˆC를 누르면 이 프로그램이 강제로 종료된다.
 
+그런데 앞에서 만든 이 cpu.c라는 프로그램을 동시에 4개를 실행을 한다면?
 
 ```html
 prompt> ./cpu A & ; ./cpu B & ; ./cpu C & ; ./cpu D &
@@ -196,8 +197,41 @@ D
 ...
 ```
 
-그런데 앞에서 만든 이 cpu.c라는 
+실행을 해보면, 4개의 프로그램이 동시에 실행이 되는것 처럼 보인다. 다만 내부적으로는 그렇지 않다. CPU가 하나 뿐이어도 4개의 프로그램 모두 동시에 실행되는 것처럼 '보이는' 것이다.
 
+#### Virtualizing Memory
+
+Virtualization 에서 또다른 중요한 자원은, Physical Memory이다. Physical Memory는 bytes의 array처럼 생겼다.
+
+어떤 프로그램을 우리가 실행한다고 했을 때, 그것은 Memory를 통해서 읽고 쓰게 되는 것이다.
+
+예를 들어, 다음과 같은 예제가 있다.
+
+##### A program that Accesses Memory (mem.c)
+
+```html
+1 	#include <unistd.h>
+2 	#include <stdio.h>
+3 	#include <stdlib.h>
+4 	#include "common.h"
+5
+6 	int
+7 	main(int argc, char *argv[])
+8 	{
+9 		int *p = malloc(sizeof(int)); 	// a1: allocate some memory
+10 		assert(p != NULL);
+11 		printf("(%d) address of p: %08x\n",
+12 		getpid(), (unsigned) p); 	// a2: print out the address of the memory
+13 		*p = 0; 			// a3: put zero into the first slot of the memory
+14	
+15 		while (1) {
+16 			Spin(1);
+17 			*p = *p + 1;
+18 			printf("(%d) p: %d\n", getpid(), *p); // a4
+19 		}
+20 	return 0;
+21 	}
+```
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
