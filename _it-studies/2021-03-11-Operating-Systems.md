@@ -125,7 +125,7 @@ System call은 사용자가 컴퓨터 시스템의 민감한 부분을 건드리
 
 OS는 CPU, Memory, Disk와 같은 리소스들을 관리해주기 때문에, 다음과 같은 것들을 가능하게 한다.
 
-* 여러 개의 프로그램이 동시에 run하고 싶다 ➜ CPU를 공유하게 해준다.
+* 여러 개의 프로그램이 동시에 run하고 싶다 ㅁ CPU를 공유하게 해준다.
 * 시스템에서 돌아가는 여러 개의 프로그램들이 Memory에 동시에 access하고 싶다 ➜ Memory를 공유하게 해준다.
 * 컴퓨터에 붙어있는 많은 access 기기를 여러 프로그램들이 사용하고 싶다 ➜ Disk를 공유하게 해준다.
 
@@ -172,7 +172,7 @@ A
 prompt>
 ```
 
-argv[1] 에 해당하는 A라는 문자가 반복적으로 출력이 된다. 그리고 ˆC를 누르면 이 프로그램이 강제로 종료된다.
+이렇게 argv[1] 에 해당하는 A라는 문자가 반복적으로 출력이 된다. 그리고 ˆC를 누르면 이 프로그램이 강제로 종료된다.
 
 그런데 앞에서 만든 이 cpu.c라는 프로그램을 동시에 4개를 실행을 한다면?
 
@@ -232,6 +232,52 @@ Virtualization 에서 또다른 중요한 자원은, Physical Memory이다. Phys
 20 	return 0;
 21 	}
 ```
+
+이 파일을 compile해서 실행을 해보면, 
+
+```html
+prompt> ./mem
+(2134) memory address of p: 00200000
+(2134) p: 1
+(2134) p: 2
+(2134) p: 3
+(2134) p: 4
+(2134) p
+```
+
+이렇게 p라는 포인터가 0x00200000의 Memory 공간을 가리키는 값을 가지고, 이 공간의 값을 1씩 증가시킨다.
+
+그런데 앞에서 만든 이 mem.c라는 프로그램을 동시에 2개를  실행을 한다면?
+
+```html
+prompt> ./mem &; ./mem &
+[1] 24113
+[2] 24114
+(24113) memory address of p: 00200000
+(24114) memory address of p: 00200000
+(24113) p: 1
+(24114) p: 1
+(24114) p: 2
+(24113) p: 2
+(24113) p: 3
+(24114) p: 3
+...
+```
+
+실행을 해보면, (24113)와 (24114) 두 프로세서 모두 0x00200000의 Memory 공간을 가리키는 값을 가지고, 2개의 프로그램이 동시에 실행이 되는것 처럼 보이는 것을 알 수 있다. 
+
+다만 만약 동시에 실행이 된다면 p의 값이 1씩 증가할때, (24113) p: 1 ➜ (24114) p: 2가 되어야 한다((24113)와 (24114) 두 프로세서 모두 0x00200000의 Memory 공간을 가리키므로). 그런데  마치 (24113) 와 (24114) 둘이 다른 공간을 가리키는 것처럼, 마치 서로 독립적인 Memory를 가지고 있는 것 처럼 작동된다.
+
+이것이 바로 Virtualization 이다. OS에서 하나의 프로그램이 하나의 공간을 다 차지하는 '것처럼' 가상화하는 것이다.
+
+예컨데, 각 프로세스는 각각 개인적인 Virtual Address Space에 access한다. 이는 실제 Physical Address Space 는 아니지만, OS가 Address Space를 Physical Memory와 연결해 주는 것이다.
+
+Virtualizing Memory를 이용하면, 한 프로그램에서 돌리고 있는 Memory Reference는 다른 프로그램의 Memory 프로세서에 영향을 미치지 않는다. Virtualize 되었기 때문이다. Virtualizing Memory은 OS가 해준다.
+
+즉, Physical memory는 OS의 관리를 받는 Shared Resource인 것이다.
+
+
+
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
