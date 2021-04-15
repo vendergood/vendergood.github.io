@@ -7,9 +7,8 @@ featured_image: '/images/under-construction.jpg'
 
 ![](/images/under-construction.jpg)
 
-*****
-Intro
-------------- 
+
+## Intro
 
 ### Some History
  
@@ -410,9 +409,10 @@ Concurrency 말고도 문제가 하나 더 있다. 바로 Persistence 문제이�
 
 File system 또한 많은 일을 한다. 파일을 읽고 쓰는데 어떤 방법이 더 효율적인가(ex. Journaling or copy-on-write) 등등의 최적화기법을 고려한다.
 
-
-Intro
 ------------- 
+
+## d
+
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
