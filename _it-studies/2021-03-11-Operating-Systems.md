@@ -8,16 +8,15 @@ featured_image: '/images/under-construction.jpg'
 ![](/images/under-construction.jpg)
 
 
-## Intro
 
-### Some History
+## History of OS
  
 우선 옛날얘기 부터 해보자. 사실 컴퓨터라는 것의 역사가 그리 길지는 않다. 1900년대 중반, 이 시기에 최초의 컴퓨터가 탄생하게 된다. 
 
 최초의 컴퓨터가 어떻게 발전하게 되고, 그리고 그 과정에서 운영체제가 어떤 역할을 하게 되었는지 한번 살펴보자.
  
  
-#### ● 1G (1945-55)
+### ● 1G (1945-55)
  
 <div class="gallery" data-columns="3">
 	<img src="/images/under-construction.jpg">
@@ -30,7 +29,7 @@ featured_image: '/images/under-construction.jpg'
  
 이 시기에는 OS, 프로그래밍 언어, 어셈블리 언어.. 이런것들이 존재하지 않았다. 그냥 단순한 기계적인 시스템으로 필요한 계산들을 했던 것이다.
  
-#### ● 2G (1955-65)
+### ● 2G (1955-65)
  
 <div class="gallery" data-columns="3">
 	<img src="/images/under-construction.jpg">
@@ -47,7 +46,7 @@ featured_image: '/images/under-construction.jpg'
  
 이 시기에는 OS, 프로그래밍 언어, 어셈블리 언어.. 이런것들이 존재하지 않았다. 그냥 단순한 기계적인 시스템으로 필요한 계산들을 했던 것이다.
 
-#### ● 3G (1965-80)
+### ● 3G (1965-80)
  
 <div class="gallery" data-columns="3">
 	<img src="/images/under-construction.jpg">
@@ -87,7 +86,7 @@ Time-sharing systems은 짧은 시간 간격으로 CPU를 각 프로세스에 �
 
 Time-sharing systems을 실행을 하기 위해서는 더 복잡한 OS가 필요하게 된다. Time-sharing systems이 가능하게 되면서 Batch System 처럼 기다릴 필요없이 다수의 사용자가 동시에 접속할 수 있게 되었다.
 
-#### ● 4G (1980-)
+### ● 4G (1980-)
  
 <div class="gallery" data-columns="3">
 	<img src="/images/under-construction.jpg">
@@ -98,7 +97,7 @@ Time-sharing systems을 실행을 하기 위해서는 더 복잡한 OS가 필요
 
 우리에게 친숙한 현대적인 멀티미디어, 인터넷, 모바일 등등의 GUI(Graphical User Interface)가 이때 발전하게 되었다.
 
-### OS concepts
+## OS concepts
 
 프로그램이 실행될때, 무슨 일이 일어날까? 프로그램이 시작된다는 것은 다음의 Instructions을 하나하나 연속적으로 실행한다는 것이다.
 
@@ -109,19 +108,19 @@ Time-sharing systems을 실행을 하기 위해서는 더 복잡한 OS가 필요
 
 이런 과정 내에서 OS는 컴퓨터 시스템이 올바르고 효율적으로 작동할 수 있게 도와주는 역할을 한다.
 
-#### Virtualization
+### Virtualization
 
 Virtualization(가상화) = OS가  Processor, Memory, Disk와 같은 물리적인 자원을 Virtual Form, 즉 가상적인 형태로 변환해서 유저나 어플리케이션들에게 제공하는 것. Virtual Form은 좀더 일반적이고, 유용하고, 더쉽게 쓸수 있는 형태이다.
 
 그렇기에 우리는 OS를 Virtual Machine이라고 부른다.
 
-#### System call
+### System call
 
 System call은 사용자가 컴퓨터 시스템의 민감한 부분을 건드리지 않고, 그것을 OS보고 대신 제어해달라는 형태의 인터페이스이다. OS는 API등의 인터페이스를 제공을 한다. 
 
 그리고 그 API 인터페이스들은 OS 차원에서 이 시스템을 제어할 수 있는 온갖 일을 한다. (ex. Run programs, Access memory, Access devices)
 
-#### The OS is a resource manager
+### The OS is a resource manager
 
 OS는 CPU, Memory, Disk와 같은 리소스들을 관리해주기 때문에, 다음과 같은 것들을 가능하게 한다.
 
@@ -129,13 +128,11 @@ OS는 CPU, Memory, Disk와 같은 리소스들을 관리해주기 때문에, 다
 * 시스템에서 돌아가는 여러 개의 프로그램들이 Memory에 동시에 access하고 싶다 ➜ Memory를 공유하게 해준다.
 * 컴퓨터에 붙어있는 많은 access 기기를 여러 프로그램들이 사용하고 싶다 ➜ Disk를 공유하게 해준다.
 
-#### Virtualizing the CPU
+### Virtualizing the CPU
 
 CPU를 Virtualizing한다는 말의 의미는, 물리적으로는 한계가 존재하는 CPU를 수의 제한이 없는 여러개의 CPU로 보이게끔 만들어주는 기술이다.
 
 예를 들어, 다음과 같은 예제가 있다.
-
-##### Simple Example(cpu.c): Code That Loops and Prints
 
 ```html
 1 	#include <stdio.h>
@@ -159,6 +156,7 @@ CPU를 Virtualizing한다는 말의 의미는, 물리적으로는 한계가 존�
 19 		return 0;
 20 	}
 ```
+##### Simple Example(cpu.c): Code That Loops and Prints
 
 이 파일을 compile해서 실행을 해보면, 
 
@@ -199,15 +197,13 @@ D
 
 실행을 해보면, 4개의 프로그램이 동시에 실행이 되는것 처럼 보인다. 다만 내부적으로는 그렇지 않다. CPU가 하나 뿐이어도 4개의 프로그램 모두 동시에 실행되는 것처럼 '보이는' 것이다.
 
-#### Virtualizing Memory
+### Virtualizing Memory
 
 Virtualization 에서 또다른 중요한 자원은, Physical Memory이다. Physical Memory는 bytes의 array처럼 생겼다.
 
 어떤 프로그램을 우리가 실행한다고 했을 때, 그것은 Memory를 통해서 읽고 쓰게 되는 것이다.
 
 예를 들어, 다음과 같은 예제가 있다.
-
-##### A program that Accesses Memory (mem.c)
 
 ```html
 1 	#include <unistd.h>
@@ -232,6 +228,7 @@ Virtualization 에서 또다른 중요한 자원은, Physical Memory이다. Phys
 20 	return 0;
 21 	}
 ```
+##### A program that Accesses Memory (mem.c)
 
 이 파일을 compile해서 실행을 해보면, 
 
@@ -274,15 +271,13 @@ prompt> ./mem &; ./mem &
 
 Virtualizing Memory를 이용하면, 한 프로그램에서 돌리고 있는 Memory Reference는 다른 프로그램의 Memory 프로세서에 영향을 미치지 않는다. Virtualize 되었기 때문이다. Virtualizing Memory은 OS가 해준다. 여기서 Physical memory는 OS의 관리를 받는 Shared Resource인 것이다.
 
-#### The problem of Concurrency
+### The problem of Concurrency
 
 Virtualizing을 이용하면 문제가 하나 생긴다. 바로 Concurrency 문제이다.
 
 한 컴퓨터에서 여러가지 프로그램이 run할 경우, 내부적으로 OS는 많은 일을 하게 된다. Multi-Threaded Programs들도 Concurrency 문제가 터지게 된다.
 
 Multi-Threaded Programs의 예제를 하나 살펴보자.
-
-##### A Multi-threaded Program (thread.c)
 
 ```html
 1 	#include <stdio.h>
@@ -319,24 +314,24 @@ Multi-Threaded Programs의 예제를 하나 살펴보자.
 32 		return 0;
 33 	}
 ```
+##### A Multi-threaded Program (thread.c)
 
 이 파일을 compile해서 실행을 해보면, main 함수가 2개의 worker() thread를 만들어 준다는 것을 알 수 있다. 여기서 Thread는 하나의 프로그램 내에서 동시에 독립적으로 실행되는 함수이다.
 
 Thread를 실행하게 되면, 이 프로그램이 가지고 있는 Memory 영역을 공유하면서, 동시에 그 함수 두 개가 실행이 된다.
 
-##### loops: 1000.
 ```html
 prompt> gcc -o thread thread.c -Wall -pthread
 prompt> ./thread 1000
 Initial value : 0
 Final value : 2000
 ```
+##### loops: 1000.
 
 loop가 1000번을 하면, worker() thread가 두개 이므로 1000 + 1000 = 2000. 즉, counter가 2000이 찍히는건 너무나 자연스럽다. 
 
 그런데...
 
-##### loops: 10000.
 ```html
 prompt> ./thread 100000
 Initial value : 0
@@ -345,12 +340,13 @@ prompt> ./thread 100000
 Initial value : 0
 Final value : 137298 		// 이게 뭐얔ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
 ```
+##### loops: 10000.
 
 loop가 10000번을 하면, worker() thread가 두 개 이므로 10000 + 10000 = 20000. 즉, counter가 20000이 찍혀야 한다. 찍혀야 하는데...
 
 실질적으로는 그렇게 나오지 않는다. 실행할때마다 결과가 바뀐다. 이것이 바로 Concurrency에 대한 Issue이다.
 
-#### Why is this happening? 
+### Why is this happening? 
 
 ```html
 8	void *worker(void *arg) {
@@ -370,7 +366,7 @@ loop가 10000번을 하면, worker() thread가 두 개 이므로 10000 + 10000 =
 
 이 세 단계로 이루어져 있는데, 두개의 Thread가 돌면서 수행하는 Instructions의 순서가 꼬이기 때문에 Concurrency 문제가 일어난다. 이를 보통 non-atomic 하다고 지칭한다.
 
-#### Persistence
+### Persistence
 
 Concurrency 말고도 문제가 하나 더 있다. 바로 Persistence 문제이다.
 
@@ -381,8 +377,6 @@ Concurrency 말고도 문제가 하나 더 있다. 바로 Persistence 문제이�
 하드웨어 입장에서는 hard drive나 SSD 등의 각종 Device들이 있고, 이런 Device들의 data를 어떻게 표현하고 저장을 하느냐가 소프트웨어의 입장이고, 이런 것들을 OS에서 지원을 한다. 
 
 다음의 예제처럼 말이다.
-
-##### Create a file (/tmp/file) that contains the string “hello world”
 
 ```html
 1 	#include <stdio.h>
@@ -402,6 +396,7 @@ Concurrency 말고도 문제가 하나 더 있다. 바로 Persistence 문제이�
 15 		return 0;
 16 	}
 ```
+##### Create a file (/tmp/file) that contains the string “hello world”
 
 위의 파일을 compile하면, 단순하게 제대로 파일이 하나 생기고 disk에 저장이 된다. 얼핏보면 당연한 과정 같지만, 이 과정에도 OS는 많은 일을 한다.
 
@@ -409,10 +404,28 @@ Concurrency 말고도 문제가 하나 더 있다. 바로 Persistence 문제이�
 
 File system 또한 많은 일을 한다. 파일을 읽고 쓰는데 어떤 방법이 더 효율적인가(ex. Journaling or copy-on-write) 등등의 최적화기법을 고려한다.
 
+### Design Goals
+
+Virtualiaztion, Concurrency, Persistence의 요소를 고려하여 OS가 지향하는 목표가 있다.
+
+물론 그 중의 하나는 고오급 Abstraction을 만드는 것이다. 즉 여러 프로그램들의 입장에서 봤을때, 하나의 CPU를 '어떻게 하면 나만 쓸수 있는 CPU처럼 보이게 만들것인가'.
+
+그리고 OS가 Abstraction을 만들고나서도, 여전히 빠르고 반응성이 좋아야하는 Performance를 유지해야 한다.
+
+또한, 하나의 CPU를 동시에 여러 프로그램이 공유하는데, 이 프로그램들은 서로 Isolate 되어야 한다. 이는 해킹의 위험성 때문이다. 또한 몇날몇일 실행될 수 있게 하는 Reliability도 높아야 한다. 에너자이저 광고 처럼...
+
 ------------- 
 
-## d
+## Process
 
+### Some History
+ 
+우선 옛날얘기 부터 해보자. 사실 컴퓨터라는 것의 역사가 그리 길지는 않다. 1900년대 중반, 이 시기에 최초의 컴퓨터가 탄생하게 된다. 
+
+최초의 컴퓨터가 어떻게 발전하게 되고, 그리고 그 과정에서 운영체제가 어떤 역할을 하게 되었는지 한번 살펴보자.
+ 
+ 
+#### ● 1G (1945-55)
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
