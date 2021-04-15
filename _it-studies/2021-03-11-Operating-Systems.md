@@ -131,7 +131,32 @@ OS는 CPU, Memory, Disk와 같은 리소스들을 관리해주기 때문에, 다
 
 #### Virtualizing the CPU
 
-CPU를 Virtualizing한다는 것의 의미는,
+CPU를 Virtualizing한다는 말의 의미는, 물리적으로는 한계가 존재하는 CPU를 수의 제한이 없는 여러개의 CPU로 보이게끔 만들어주는 기술이다.
+
+예를 들어, 다음과 같은 예제가 있다.
+
+```html
+1 	#include <stdio.h>
+2 	#include <stdlib.h>
+3 	#include <sys/time.h>
+4 	#include <assert.h>
+5 	#include "common.h"
+6
+7 	int
+8 	main(int argc, char *argv[])
+9 	{
+10	 	if (argc != 2) {
+11	 	fprintf(stderr, "usage: cpu <string>\n");
+12	 	exit(1);
+13	 	}
+14	 	char *str = argv[1];
+15	 	while (1) {
+16	 		Spin(1); // Repeatedly checks the time and returns once it has run for a second
+17	 		printf("%s\n", str);
+18	 	}
+19 		return 0;
+20 	}
+```
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
