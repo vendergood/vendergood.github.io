@@ -10,7 +10,10 @@ featured_image: '/images/under-construction.jpg'
  
 ### Some History
  
-우선 옛날얘기 부터 해보자. 사실 컴퓨터라는 것의 역사가 그리 길지는 않다. 한 1900년대 중반... 이 시기에 최초의 컴퓨터가 탄생하게 된다. 최초의 컴퓨터가 어떻게 발전하게 되고, 그리고 그 과정에서 운영체제가 어떤 역할을 하게 되었는지 한번 살펴보자.
+우선 옛날얘기 부터 해보자. 사실 컴퓨터라는 것의 역사가 그리 길지는 않다. 1900년대 중반, 이 시기에 최초의 컴퓨터가 탄생하게 된다. 
+
+최초의 컴퓨터가 어떻게 발전하게 되고, 그리고 그 과정에서 운영체제가 어떤 역할을 하게 되었는지 한번 살펴보자.
+ 
  
 #### 1G (1945-55)
  
@@ -26,6 +29,12 @@ featured_image: '/images/under-construction.jpg'
 이 시기에는 OS, 프로그래밍 언어, 어셈블리 언어.. 이런것들이 존재하지 않았다. 그냥 단순한 기계적인 시스템으로 필요한 계산들을 했던 것이다.
  
 #### 2G (1955-65)
+ 
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+	<img src="/images/under-construction.jpg">
+</div>
+
 
 This page is a demo that shows everything you can do inside portfolio and blog posts.
 
