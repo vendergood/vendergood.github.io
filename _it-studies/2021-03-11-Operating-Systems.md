@@ -356,16 +356,62 @@ loop가 10000번을 하면, worker() thread가 두 개 이므로 10000 + 10000 =
 8	void *worker(void *arg) {
 9 		int i;
 10 		for (i = 0; i < loops; i++) {
-11 			**counter++;
+11 			counter++;
 12 		}
 13 		return NULL;
 14 	}
 ```
 
-아까 counter라는 공유하는 변수의 값을 두 스레드가 동시에 업데이트 하는 것인데, 사실 아까 counter++ 라는 코드는 사실 2~3개의 Instructions 로 이루어져 있다. 
+아까 counter라는 공유하는 변수의 값을 두 Thread가 동시에 업데이트 하는 것인데, 사실 아까 counter++; 라는 코드는 내부적으로는 사실 3개 이상의 Instructions 로 이루어져 있다. 
+
+1. counter 변수에 들어있는 값을 Memory로 불러들어오는 것
+2. 이 값을 하나 증가시키는 것
+3. 증가한 값을 Memory에 다시 넣어주는 것
+
+이 세 단계로 이루어져 있는데, 두개의 Thread가 돌면서 수행하는 Instructions의 순서가 꼬이기 때문에 Concurrency 문제가 일어난다. 이를 보통 non-atomic 하다고 지칭한다.
+
+#### Persistence
+
+Concurrency 말고도 문제가 하나 더 있다. 바로 Persistence 문제이다.
+
+아까 컴퓨터의 중요한 요소는 CPU와 Memory라고 했다. 그런데 Memory는 volatile하다. volatile하다는 의미는 전원이 꺼지면 좆된다는 이야기이다.
+
+그래서 data를 Persistence하게 저장할 필요가 있다. 이런 Persistence적인 문제를 OS 차원에서 support 한다.
+
+하드웨어 입장에서는 hard drive나 SSD 등의 각종 Device들이 있고, 이런 Device들의 data를 어떻게 표현하고 저장을 하느냐가 소프트웨어의 입장이고, 이런 것들을 OS에서 지원을 한다. 
+
+다음의 예제처럼 말이다.
+
+##### Create a file (/tmp/file) that contains the string “hello world”
+
+```html
+1 	#include <stdio.h>
+2 	#include <unistd.h>
+3 	#include <assert.h>
+4 	#include <fcntl.h>
+5 	#include <sys/types.h>
+6
+7 	int
+8 	main(int argc, char *argv[])
+9 	{
+10 		int fd = open("/tmp/file", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+11 		assert(fd > -1);
+12 		int rc = write(fd, "hello world\n", 13);
+13 		assert(rc == 13);
+14 		close(fd);
+15 		return 0;
+16 	}
+```
+
+위의 파일을 compile하면, 단순하게 제대로 파일이 하나 생기고 disk에 저장이 된다. 얼핏보면 당연한 과정 같지만, 이 과정에도 OS는 많은 일을 한다.
+
+이 새로 만들어진 파일을 Disk의 어느 위치에다가 저장해야 하는지 부터 시작을 해서, 이 위치에 저장을 하기 위해 어떤식으로 하드웨어에 명령을 주고, 어떤식으로 해당 위치에 넣어줄 것인가 까지 말이다.
+
+File system 또한 많은 일을 한다. 파일을 읽고 쓰는데 어떤 방법이 더 효율적인가(ex. Journaling or copy-on-write) 등등의 최적화기법을 고려한다.
 
 
-
+Intro
+------------- 
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
