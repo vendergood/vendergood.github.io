@@ -8,7 +8,7 @@ featured_image: '/images/under-construction.jpg'
 ![](/images/under-construction.jpg)
 
 
-
+*****
 ## History of OS
  
 우선 옛날얘기 부터 해보자. 사실 컴퓨터라는 것의 역사가 그리 길지는 않다. 1900년대 중반, 이 시기에 최초의 컴퓨터가 탄생하게 된다. 
@@ -134,6 +134,7 @@ CPU를 Virtualizing한다는 말의 의미는, 물리적으로는 한계가 존�
 
 예를 들어, 다음과 같은 예제가 있다.
 
+##### Simple Example(cpu.c): Code That Loops and Prints
 ```html
 1 	#include <stdio.h>
 2 	#include <stdlib.h>
@@ -156,7 +157,6 @@ CPU를 Virtualizing한다는 말의 의미는, 물리적으로는 한계가 존�
 19 		return 0;
 20 	}
 ```
-##### Simple Example(cpu.c): Code That Loops and Prints
 
 이 파일을 compile해서 실행을 해보면, 
 
@@ -205,6 +205,7 @@ Virtualization 에서 또다른 중요한 자원은, Physical Memory이다. Phys
 
 예를 들어, 다음과 같은 예제가 있다.
 
+##### A program that Accesses Memory (mem.c)
 ```html
 1 	#include <unistd.h>
 2 	#include <stdio.h>
@@ -228,7 +229,6 @@ Virtualization 에서 또다른 중요한 자원은, Physical Memory이다. Phys
 20 	return 0;
 21 	}
 ```
-##### A program that Accesses Memory (mem.c)
 
 이 파일을 compile해서 실행을 해보면, 
 
@@ -279,6 +279,7 @@ Virtualizing을 이용하면 문제가 하나 생긴다. 바로 Concurrency 문�
 
 Multi-Threaded Programs의 예제를 하나 살펴보자.
 
+##### A Multi-threaded Program (thread.c)
 ```html
 1 	#include <stdio.h>
 2 	#include <stdlib.h>
@@ -314,24 +315,24 @@ Multi-Threaded Programs의 예제를 하나 살펴보자.
 32 		return 0;
 33 	}
 ```
-##### A Multi-threaded Program (thread.c)
 
 이 파일을 compile해서 실행을 해보면, main 함수가 2개의 worker() thread를 만들어 준다는 것을 알 수 있다. 여기서 Thread는 하나의 프로그램 내에서 동시에 독립적으로 실행되는 함수이다.
 
 Thread를 실행하게 되면, 이 프로그램이 가지고 있는 Memory 영역을 공유하면서, 동시에 그 함수 두 개가 실행이 된다.
 
+##### loops: 1000.
 ```html
 prompt> gcc -o thread thread.c -Wall -pthread
 prompt> ./thread 1000
 Initial value : 0
 Final value : 2000
 ```
-##### loops: 1000.
 
 loop가 1000번을 하면, worker() thread가 두개 이므로 1000 + 1000 = 2000. 즉, counter가 2000이 찍히는건 너무나 자연스럽다. 
 
 그런데...
 
+##### loops: 10000.
 ```html
 prompt> ./thread 100000
 Initial value : 0
@@ -340,7 +341,6 @@ prompt> ./thread 100000
 Initial value : 0
 Final value : 137298 		// 이게 뭐얔ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
 ```
-##### loops: 10000.
 
 loop가 10000번을 하면, worker() thread가 두 개 이므로 10000 + 10000 = 20000. 즉, counter가 20000이 찍혀야 한다. 찍혀야 하는데...
 
@@ -378,6 +378,7 @@ Concurrency 말고도 문제가 하나 더 있다. 바로 Persistence 문제이�
 
 다음의 예제처럼 말이다.
 
+##### Create a file (/tmp/file) that contains the string “hello world”
 ```html
 1 	#include <stdio.h>
 2 	#include <unistd.h>
@@ -396,7 +397,6 @@ Concurrency 말고도 문제가 하나 더 있다. 바로 Persistence 문제이�
 15 		return 0;
 16 	}
 ```
-##### Create a file (/tmp/file) that contains the string “hello world”
 
 위의 파일을 compile하면, 단순하게 제대로 파일이 하나 생기고 disk에 저장이 된다. 얼핏보면 당연한 과정 같지만, 이 과정에도 OS는 많은 일을 한다.
 
