@@ -270,13 +270,55 @@ prompt> ./mem &; ./mem &
 
 이것이 바로 Virtualization 이다. OS에서 하나의 프로그램이 하나의 공간을 다 차지하는 '것처럼' 가상화하는 것이다.
 
-예컨데, 각 프로세스는 각각 개인적인 Virtual Address Space에 access한다. 이는 실제 Physical Address Space 는 아니지만, OS가 Address Space를 Physical Memory와 연결해 주는 것이다.
+즉, 각 프로세스는 각각 개인적인 Virtual Address Space에 access한다. 이는 실제 Physical Address Space 는 아니지만, OS가 Address Space를 Physical Memory와 연결해 주는 것이다.
 
-Virtualizing Memory를 이용하면, 한 프로그램에서 돌리고 있는 Memory Reference는 다른 프로그램의 Memory 프로세서에 영향을 미치지 않는다. Virtualize 되었기 때문이다. Virtualizing Memory은 OS가 해준다.
+Virtualizing Memory를 이용하면, 한 프로그램에서 돌리고 있는 Memory Reference는 다른 프로그램의 Memory 프로세서에 영향을 미치지 않는다. Virtualize 되었기 때문이다. Virtualizing Memory은 OS가 해준다. 여기서 Physical memory는 OS의 관리를 받는 Shared Resource인 것이다.
 
-즉, Physical memory는 OS의 관리를 받는 Shared Resource인 것이다.
+#### The problem of Concurrency
 
+Virtualizing을 이용하면 문제가 하나 생긴다. 바로 Concurrency 문제이다.
 
+한 컴퓨터에서 여러가지 프로그램이 run할 경우, 내부적으로 OS는 많은 일을 하게 된다. Multi-Threaded Programs들도 Concurrency 문제가 터지게 된다.
+
+Multi-Threaded Programs의 예제를 하나 살펴보자.
+
+##### A Multi-threaded Program (thread.c)
+
+```html
+1 	#include <stdio.h>
+2 	#include <stdlib.h>
+3 	#include "common.h"
+4
+5 	volatile int counter = 0;
+6 	int loops;
+7
+8	void *worker(void *arg) {
+9 		int i;
+10 		for (i = 0; i < loops; i++) {
+11 			counter++;
+12 		}
+13 		return NULL;
+14 	}
+15
+16 	int
+17 	main(int argc, char *argv[])
+18 	{
+19 		if (argc != 2) {
+20 			fprintf(stderr, "usage: threads <value>\n");
+21 			exit(1);
+22 		}
+23 		loops = atoi(argv[1]);
+24 		pthread_t p1, p2;
+25 		printf("Initial value : %d\n", counter);
+26
+27 		Pthread_create(&p1, NULL, worker, NULL);
+28 		Pthread_create(&p2, NULL, worker, NULL);
+29 		Pthread_join(p1, NULL);
+30 		Pthread_join(p2, NULL);
+31 		printf("Final value : %d\n", counter);
+32 		return 0;
+33 	}
+```
 
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
