@@ -107,7 +107,31 @@ Time-sharing systems을 실행을 하기 위해서는 더 복잡한 OS가 필요
 3. 그리고 나서 Instructions를 Decode하여 해석한 결과에 따라 Instructions을 Execute 한다.
 4. 한 Instructions이 끝난 후, 다른 Instructions에 대해 ①~③ 과정을 무한 반복한다.
 
-This page is a demo that shows everything you can do inside portfolio and blog posts.
+이런 과정 내에서 OS는 컴퓨터 시스템이 올바르고 효율적으로 작동할 수 있게 도와주는 역할을 한다.
+
+#### Virtualization
+
+Virtualization(가상화) = OS가  Processor, Memory, Disk와 같은 물리적인 자원을 Virtual Form, 즉 가상적인 형태로 변환해서 유저나 어플리케이션들에게 제공하는 것. Virtual Form은 좀더 일반적이고, 유용하고, 더쉽게 쓸수 있는 형태이다.
+
+그렇기에 우리는 OS를 Virtual Machine이라고 부른다.
+
+#### System call
+
+System call은 사용자가 컴퓨터 시스템의 민감한 부분을 건드리지 않고, 그것을 OS보고 대신 제어해달라는 형태의 인터페이스이다. OS는 API등의 인터페이스를 제공을 한다. 
+
+그리고 그 API 인터페이스들은 OS 차원에서 이 시스템을 제어할 수 있는 온갖 일을 한다. (ex. Run programs, Access memory, Access devices)
+
+#### The OS is a resource manager
+
+OS는 CPU, Memory, Disk와 같은 리소스들을 관리해주기 때문에, 다음과 같은 것들을 가능하게 한다.
+
+여러 개의 프로그램이 동시에 run하고 싶다 ➜ CPU를 공유하게 해준다
+시스템에서 돌아가는 여러 개의 프로그램들이 Memory에 동시에 access하고 싶다 ➜ Memory를 공유하게 해준다
+컴퓨터에 붙어있는 많은 access 기기를 여러 프로그램들이 사용하고 싶다 ➜ Disk를 공유하게 해준다
+
+#### Virtualizing the CPU
+
+CPU를 Virtualizing한다는 것의 의미는,
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
