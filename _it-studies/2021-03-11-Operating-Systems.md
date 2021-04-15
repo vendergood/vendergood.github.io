@@ -105,7 +105,7 @@ Time-sharing systems을 실행을 하기 위해서는 더 복잡한 OS가 필요
 1. Fetch라는 과정을 통해서, 메모리에서 Instructions을 하나 가져온다.
 2. 그 다음, Decode를 하여 이 Instructions이 과연 어떤 Instructions인지를 해석을 한다.
 3. 그리고 나서 Instructions를 Decode하여 해석한 결과에 따라 Instructions을 Execute 한다.
-4. 한 Instructions이 끝난 후, 다른 Instructions에 대해 1. ~ 3. 과정을 무한 반복한다.
+4. 한 Instructions이 끝난 후, 다른 Instructions에 대해 ①~③ 과정을 무한 반복한다.
 
 This page is a demo that shows everything you can do inside portfolio and blog posts.
 
