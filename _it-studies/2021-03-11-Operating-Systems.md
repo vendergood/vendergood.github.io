@@ -444,9 +444,9 @@ Machine state라는 것은 말그대로... Process가 실행중인 프로그램�
 
 Process와 Program은 뭐가 다를까? 
 
-어떤 instructions나 data 의 집합, 즉 명령어의 집합이 바로 Program이다. 그러다, 우리는 Program을 실행을 한다.
+어떤 instructions나 data 의 집합, 즉 명령어의 집합이 바로 Program이다. 
 
-Program을 실행을 할시, 컴퓨터의 입장에서는 OS가 Program의 instructions나 data를 CPU나 Memory로 load을 한다. 그럼 CPU는 Program의 instructions들을 실행하고, Memory는 Program의 data들을 받아들인다.
+그러다 우리가 Program을 실행할 시, 컴퓨터의 입장에서는 OS가 Program의 instructions나 data를 CPU나 Memory로 load을 한다. 그럼 CPU는 Program의 instructions들을 실행하고, Memory는 Program의 data들을 받아들인다.
 
 이렇게 loading 되어서 실행되고 있는 Program을 우리가 Process라고 부르는 것이다.
  
@@ -454,7 +454,7 @@ Program을 실행을 할시, 컴퓨터의 입장에서는 OS가 Program의 instr
 
 Process을 만들고 제어하기 위해서, OS에서는 다양한 인터페이스를 제공해준다.
 
-만들고(Create), 죽이고(Destroy), 다른 프로세스가 변화가 생기기를 기다리고(Wait), 다른 프로세스를 제어하거나(Miscellaneous Control), 프로세스의 상태를 모니터링하거나(Status)...
+만들고(Create), 죽이고(Destroy), 다른 Process가 변화가 생기기를 기다리고(Wait), 다른 Process를 제어하거나(Miscellaneous Control), Process의 상태를 모니터링하거나(Status)...
 
 이런 형태의 인터페이스를 제공해준다
 
@@ -474,10 +474,15 @@ Process가 생성될때, Program의 코드가 Memory로 loading이 된다. Progr
  
 5. 그 이후 최종적으로 방금 loading한 프로그램을 entry point, 즉 main() 함수 위치 부터 실행을 해준다. 이 과정은 OS가 CPU의 제어권을 새로만든 Process에 넘겨주는 과정이다.  
 
+### Process States
 
+Process가 시작이 된 후에는, Process는 여러가지의 State를 갖는다. Process의 state는 다음의 세가지 state로 표현될 수 있다. 
 
+* Running : 현재 이 Process의 code가 CPU에서 실행되고 있는 state. 좀더 쉽게 그냥 현재 Process가 실행중이면 Running state이다.
+* Ready : 현재 이 Process가 실행할 준비가 다 되었지만, 실행을 안하고 기다리고 있는 state이다. 이 Process가 실행할 준비가 다 되었음에도 실행을 하지 않는 이유는, 여러가지 이유가 있긴 하지만 보통은 현재 CPU를 다른 Process가 사용하고 있는 경우에 대체로 Ready state이다.
+* Blocked : 해당 Process가 실행을 하고 그 결과를 기다리고 있는 state이다. 따라서 그 실행하고 있던 뭔가가 끝나기 전까지는, 실행이 될 수 없는 그런 state를 말한다. 
 
-
+### Process State Transitions
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
