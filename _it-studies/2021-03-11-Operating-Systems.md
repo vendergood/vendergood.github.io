@@ -98,10 +98,14 @@ Time-sharing systems을 실행을 하기 위해서는 더 복잡한 OS가 필요
 
 우리에게 친숙한 현대적인 멀티미디어, 인터넷, 모바일 등등의 GUI(Graphical User Interface)가 이때 발전하게 되었다.
 
-#### ● Multics
+### OS concepts
 
-Multics는 Multiplexed Information and Computing Service 의 약자로, Time-sharing 밒 Multi-Processor Mainframe을 사용하기 위한 OS 이다.
+프로그램이 실행될때, 무슨 일이 일어날까? 프로그램이 시작된다는 것은 다음의 Instructions을 하나하나 연속적으로 실행한다는 것이다.
 
+1. Fetch라는 과정을 통해서, 메모리에서 Instructions을 하나 가져온다.
+2. 그 다음, Decode를 하여 이 Instructions이 과연 어떤 Instructions인지를 해석을 한다.
+3. 그리고 나서 Instructions를 Decode하여 해석한 결과에 따라 Instructions을 Execute 한다.
+4. 한 Instructions이 끝난 후, 다른 Instructions에 대해 1. ~ 3. 과정을 무한 반복한다.
 
 This page is a demo that shows everything you can do inside portfolio and blog posts.
 
