@@ -135,6 +135,8 @@ CPU를 Virtualizing한다는 말의 의미는, 물리적으로는 한계가 존�
 
 예를 들어, 다음과 같은 예제가 있다.
 
+##### Simple Example(cpu.c): Code That Loops and Prints
+
 ```html
 1 	#include <stdio.h>
 2 	#include <stdlib.h>
@@ -157,6 +159,45 @@ CPU를 Virtualizing한다는 말의 의미는, 물리적으로는 한계가 존�
 19 		return 0;
 20 	}
 ```
+
+이 파일을 compile해서 실행을 해보면, 
+
+```html
+prompt> gcc -o cpu cpu.c -Wall
+prompt> ./cpu "A"
+A
+A
+A
+ˆC
+prompt>
+```
+
+argv[1] 에 해당하는 A라는 문자가 반복적으로 출력이 된다. 그리고 ˆC를 누르면 이 프로그램이 강제로 종료된다.
+
+
+```html
+prompt> ./cpu A & ; ./cpu B & ; ./cpu C & ; ./cpu D &
+[1] 7353
+[2] 7354
+[3] 7355
+[4] 7356
+A
+B
+D
+C
+A
+B
+D
+C
+A
+C
+B
+D
+...
+```
+
+그런데 앞에서 만든 이 cpu.c라는 
+
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
