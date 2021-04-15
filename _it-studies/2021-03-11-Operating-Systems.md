@@ -36,6 +36,12 @@ Intro
 	<img src="/images/under-construction.jpg">
 	<img src="/images/under-construction.jpg">
 </div>
+ 
+이 다음 세대는 트랜지스터. 
+ 
+우리가 흔히 최초의 컴퓨터라고 하는 이 ENIAC 시스템이 이 진공관들로 이루어진 시스템이다. 
+ 
+이 시기에는 OS, 프로그래밍 언어, 어셈블리 언어.. 이런것들이 존재하지 않았다. 그냥 단순한 기계적인 시스템으로 필요한 계산들을 했던 것이다.
 
 
 This page is a demo that shows everything you can do inside portfolio and blog posts.
