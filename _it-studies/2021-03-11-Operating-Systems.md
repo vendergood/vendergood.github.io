@@ -320,6 +320,52 @@ Multi-Threaded Programs의 예제를 하나 살펴보자.
 33 	}
 ```
 
+이 파일을 compile해서 실행을 해보면, main 함수가 2개의 worker() thread를 만들어 준다는 것을 알 수 있다. 여기서 Thread는 하나의 프로그램 내에서 동시에 독립적으로 실행되는 함수이다.
+
+Thread를 실행하게 되면, 이 프로그램이 가지고 있는 Memory 영역을 공유하면서, 동시에 그 함수 두 개가 실행이 된다.
+
+##### loops: 1000.
+```html
+prompt> gcc -o thread thread.c -Wall -pthread
+prompt> ./thread 1000
+Initial value : 0
+Final value : 2000
+```
+
+loop가 1000번을 하면, worker() thread가 두개 이므로 1000 + 1000 = 2000. 즉, counter가 2000이 찍히는건 너무나 자연스럽다. 
+
+그런데...
+
+##### loops: 10000.
+```html
+prompt> ./thread 100000
+Initial value : 0
+Final value : 143012 		// ??????
+prompt> ./thread 100000
+Initial value : 0
+Final value : 137298 		// 이게 뭐얔ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+```
+
+loop가 10000번을 하면, worker() thread가 두 개 이므로 10000 + 10000 = 20000. 즉, counter가 20000이 찍혀야 한다. 찍혀야 하는데...
+
+실질적으로는 그렇게 나오지 않는다. 실행할때마다 결과가 바뀐다. 이것이 바로 Concurrency에 대한 Issue이다.
+
+#### Why is this happening? 
+
+```html
+8	void *worker(void *arg) {
+9 		int i;
+10 		for (i = 0; i < loops; i++) {
+11 			**counter++;
+12 		}
+13 		return NULL;
+14 	}
+```
+
+아까 counter라는 공유하는 변수의 값을 두 스레드가 동시에 업데이트 하는 것인데, 사실 아까 counter++ 라는 코드는 사실 2~3개의 Instructions 로 이루어져 있다. 
+
+
+
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
