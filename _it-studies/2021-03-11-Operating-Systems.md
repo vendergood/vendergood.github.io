@@ -479,7 +479,9 @@ Process가 생성될때, Program의 코드가 Memory로 loading이 된다. Progr
 Process가 시작이 된 후에는, Process는 여러가지의 State를 갖는다. Process의 state는 다음의 세가지 state로 표현될 수 있다. 
 
 * Running : 현재 이 Process의 code가 CPU에서 실행되고 있는 state. 좀더 쉽게 그냥 현재 Process가 실행중이면 Running state이다.
+ 
 * Ready : 현재 이 Process가 실행할 준비가 다 되었지만, 실행을 안하고 기다리고 있는 state이다. 이 Process가 실행할 준비가 다 되었음에도 실행을 하지 않는 이유는, 여러가지 이유가 있긴 하지만 보통은 현재 CPU를 다른 Process가 사용하고 있는 경우에 대체로 Ready state이다.
+ 
 * Blocked : 해당 Process가 실행을 하고 그 결과를 기다리고 있는 state이다. 따라서 그 실행하고 있던 뭔가가 끝나기 전까지는, 실행이 될 수 없는 그런 state를 말한다. 
 
 ### Process State Transitions
