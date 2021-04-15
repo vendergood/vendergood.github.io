@@ -54,16 +54,53 @@ Intro
 	<img src="/images/under-construction.jpg">
 </div>
  
-이 다음 세대는 트랜지스터. 트랜지스터라는 소재에 의해서 그 다음 컴퓨팅 시스템의 시대가 열리게 되는데, 이런 트랜지스터라는 소재료를 활용해서 Mainframe이라는 시스템이 만들어졌다.  Mainframe는 아주 거대한 컴퓨터였고, 다수의 사람들이 공유해서 사용하는 그런 컴퓨터를 일컫는 말이다. 다만 현대와 같은 발전된 형태의 Computing System은 아니었다.
+이 다음 세대는 IC 회로(Integrated Circuit)의 등장으로 인해서, 컴퓨팅 성능이 급증하게 되고, 가격은 낮아지게 되었다.
 
-이때는 Batch System이라고 얘기했다. 거대한 컴퓨터는 있지만, 이 거대한 컴퓨터에서 한번의 하나의 프로그램만 작동할 수 있었던 것이다.
+또한 Disk drives나 On-line terminals과 같은 하드웨어들도 등장하기 시작했고, 이로 인해서 Computer Architecture 라는 개념이 등장하였다.
 
-이 시기의 OS는 어느 한 순간에 하나의 프로그램을 돌리기만 하면 되었기 때문에, 이 시기의 OS는 Library의 형태에 가까웠다고 한다.
+System call 이라는 개념도 이때 등장하게 된다. 이는 우리가 소프트웨어를 만들때, 운영체제 혹은 하드웨어가 제공하는 기능들을 사용하기 쉽게 제공해주는 일종의 인터페이스이다. 
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+	<img src="/images/under-construction.jpg">
+</div>
+
+이런 IC 기반의 컴퓨터들로부터, 현대 컴퓨터 운영체제의 기틀이 다져지기 시작하는데, 그중의 하나의 특성이 바로 Multiprogrammed systems 이다.
+
+아까 위에서 Batch System 라고 언급한것이 있다. 이는 거대한 컴퓨터에서 한번의 하나의 프로그램만 작동할 수 있었던 것인데, Multiprogrammed systems는 이런 형태를 벗어난 것이다.
+
+Multiprogrammed systems으로 인해, OS의 중요성이 매우 높아지게 되었다. 하나의 컴퓨터 시스템에서 여러 개의 프로그램을 돌아가려면 여러개의 소프트웨어가 하나의 하드웨어를 공유해야 하는데, 이에 의한 여러 문제점들이 발생하기 때문이다.
+
+대표적인 문제 중의 하나가 바로 Memory management이다. 제한된 Memory 영역에서 여러개의 소프트웨어가 돌아가려면, 어떤 소프트웨어가 어디까지 Memory를 쓰게 할지가 관건인 것이다.
+
+또다른 대표적인 문제로 Protection이 있다. 하나의 소프트웨어가 다른 소프트웨어가 돌아가는 영역을 침범하면 안되는 것이다.
+
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+	<img src="/images/under-construction.jpg">
+</div>
+
+Multiprogrammed systems에서 중요한 개념중에 하나는 바로 Time-sharing systems이다.
+
+Time-sharing systems은 짧은 시간 간격으로 CPU를 각 프로세스에 할당하여 마치 여러 프로세스들이 동시에 CPU를 할당 받아 동작하는 것처럼 만드는 것을 말한다.
+
+Time-sharing systems을 실행을 하기 위해서는 더 복잡한 OS가 필요하게 된다. Time-sharing systems이 가능하게 되면서 Batch System 처럼 기다릴 필요없이 다수의 사용자가 동시에 접속할 수 있게 되었다.
+
+#### ● 4G (1980-)
  
-우리가 흔히 최초의 컴퓨터라고 하는 이 ENIAC 시스템이 이 진공관들로 이루어진 시스템이다. 
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+	<img src="/images/under-construction.jpg">
+</div>
  
-이 시기에는 OS, 프로그래밍 언어, 어셈블리 언어.. 이런것들이 존재하지 않았다. 그냥 단순한 기계적인 시스템으로 필요한 계산들을 했던 것이다.
+이 다음 세대는 IC 회로(Integrated Circuit)의 집적도가 급증하게 되어서, LSI(Large Scale Integration) 및 VLSI(Very Large Scale Integration) 등의 회로들이 등장하게 되어 컴퓨터가 소형화되고 성능도 발전하게 되었다. PC(Personal Computer)이 이 시기에 탄생하게 된다.
 
+우리에게 친숙한 현대적인 멀티미디어, 인터넷, 모바일 등등의 GUI(Graphical User Interface)가 이때 발전하게 되었다.
+
+#### ● Multics
+
+Multics는 Multiplexed Information and Computing Service 의 약자로, Time-sharing 밒 Multi-Processor Mainframe을 사용하기 위한 OS 이다.
 
 
 This page is a demo that shows everything you can do inside portfolio and blog posts.
