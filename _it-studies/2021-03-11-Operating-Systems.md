@@ -482,9 +482,46 @@ Process가 시작이 된 후에는, Process는 여러가지의 State를 갖는�
  
 * Ready : 현재 이 Process가 실행할 준비가 다 되었지만, 실행을 안하고 기다리고 있는 state이다. 이 Process가 실행할 준비가 다 되었음에도 실행을 하지 않는 이유는, 여러가지 이유가 있긴 하지만 보통은 현재 CPU를 다른 Process가 사용하고 있는 경우에 대체로 Ready state이다.
  
-* Blocked : 해당 Process가 실행을 하고 그 결과를 기다리고 있는 state이다. 따라서 그 실행하고 있던 뭔가가 끝나기 전까지는, 실행이 될 수 없는 그런 state를 말한다. I/O request등을 하는 경우, state가 Blocked가 된다. 예를들어, 파일을 읽고 수정하는 프로그램의 경우 open() 함수를 실행해야 하기 때문에 I/O request를 하고 state가 Blocked 상태가 된다.
+* Blocked : 해당 Process가 실행을 하고 그 결과를 기다리고 있는 state이다. 따라서 그 실행하고 있던 뭔가가 끝나기 전까지는, 실행이 될 수 없는 그런 state를 말한다. I/O request를 하는 경우, state가 Blocked가 된다. 예를들어, 파일을 읽고 수정하는 프로그램의 경우 open() 함수를 실행해야 하기 때문에 I/O request를 하고 state가 Blocked 상태가 된다.
 
-### Process State Transitions
+##### Process State Transitions
+
+##### Tracing Process State: CPU Only
+
+##### Tracing Process State: CPU and I/O
+
+### Data Structures
+
+Process라는 것도 솔직히 소프트웨어적인 개념이라고 할수 있다. Process를 나타내는 Data Structure가 OS내에 구현이 되어있다. 밑의 사진들은 Xv6의 Data structures 들이다. 
+
+##### Data Structure – The Process List
+
+앞에서 봤던 이런 struct proc이라는 Process의 정보를 담는 Data Structure를 Process Control Block (PCB)라고 한다.
+
+PCB (Process Control Block) 는 Process와 관련된 온갖 정보를 다 담고 있다. CPU registers, PID, PPID, process group, priority, process state, signals, CPU scheduling information, Memory management information, Accounting information, File management information, I/O status information, Credentials 등등...
+
+------------- 
+## Process API
+
+Process가 내부적으로는 OS내에 Data Structure로 이루어져 있다는 사실을 우리는 앞에서 알았다. 이런 OS에서 제공하는 API들에 대해서 본격적으로 살펴보자.
+
+### fork()
+
+fork()는 실행 중인 Process의 복사본 Process를 생성하는 함수이다. 일반적으로 실행 중인 Process는 Parent Process, 복사본 Process는 Child Process라고 불린다. 주로 실행 중에 별도의 독립된 작업이 필요한 경우 fork()로 복사된 Child Process가 수행하도록 만든다
+
+### wait()
+
+wait()는 Child Process를 기다릴때 사용하는 함수이다.
+
+### exec()
+
+exec()는 fork()로 Child Process 를 만든 후 그 Process를 새로운 독립적인 Process로 만들어주는 역할을 한다. 현재의 Process 이미지를 새로운 Process 이미지로 '덮어씌우는' 것이다. 그러므로 exec()는 기존의 Memory 경로정보를 가진다.
+
+### Separation of fork() and exec() 
+
+fork() 와 exec()가 분리된 이유는, 리눅스를 생각하면 간단하다. 리눅스 OS 입장에서 Shell를 실행해도 결국 Shell을 띄었을때 다른 프로그램을 실행한다. Shell도 하나의 Process이다. 즉, 우리가 명령프롬프트에 실행파일을 실행하는 것과 비슷한 이치이다.
+
+
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
