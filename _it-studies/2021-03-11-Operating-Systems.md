@@ -7,7 +7,9 @@ featured_image: '/images/under-construction.jpg'
 
 ![](/images/under-construction.jpg)
 
-## Demo content
+### Some History
+
+우선 운영체제의 역사에 대해서 알아보자.
 
 This page is a demo that shows everything you can do inside portfolio and blog posts.
 
