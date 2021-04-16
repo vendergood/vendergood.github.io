@@ -522,20 +522,50 @@ exec()는 fork()로 Child Process 를 만든 후 그 Process를 새로운 독립
 fork() 와 exec()가 분리된 이유는, 리눅스를 생각하면 간단하다. 리눅스 OS 입장에서 Shell를 실행해도 결국 Shell을 띄었을때 다른 프로그램을 실행한다. Shell도 하나의 Process이다. 즉, 우리가 명령프롬프트에 실행파일을 실행하는 것과 비슷한 이치이다.
 
 ------------- 
-## Direct Execution
+## Limited Direct Execution
 
 CPU Virtualization의 중요한 Mechanism인 Limited Direct Execution에 대해서 알아보자. 
 
-OS는 어떻게 하면 CPU Virtualization를 효율적으로 제어할 수 있는가? 이는 time sharing을 통해서 physical CPU를 공유해야 한다.
+효율적인 CPU Virtualization를 위해선 어떻게 해야하는가? OS는 동시에 진행되는 것 처럼 '보이는' Process들을 하나의 Physical CPU에서 공유해야 한다. 이전에 언급했던 **time sharing**을 통해서 이러한 CPU Virtualization를 달성할 수 있다.
 
-그런데 time sharing을 적용해도, 실행속도의 느려짐을 최대한 억제하면서 동시에 적당한 순간에 시스템의 제어권을 획득할 수 있는 그런 기법이 필요하다.
+허나 '추가적인 시스템의 overhead없이 어떻게 Virtualization를 달성할 것인가?' 에 대한 Performance issue와,  'CPU에 대한 control을 점유하고 있는 동안에 어떻게하면 Process를 효율적으로 run할 것인가?'에 대한 Control issue가 있다. 
+
+이 두가지 Issue를 달성하기 위한 방법으로 **Limited Direct Execution**가 있다. 
 
 ### Direct Execution
 
-https://velog.io/@dojun527/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9COS-MechanismLimited-Direct-Execution
+Limited Direct Execution에 대해서 이야기 하기전에 Direct Execution에 대해서 알아보자. Direct Execution은 프로그램을 CPU에서 직접적으로 실행하는 것을 의미한다.
 
-------------- 
-## 
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+위 그림과 같이 진행하는 것이 바로 Direct Execution이라고 할 수 있다. 그런데 위와 같이 limit없이 프로그램을 실행할 시, OS는 제어할 수 없고 단지 library같은 역할을 하게 된다. 
+
+그래서 Direct Execution에 따라 프로그램을 실행하면 우리가 원하는 대로의 CPU Virtualization을 할 수 없는 문제들이 있다.
+
+대체로 어떤 **문제**들이 있냐면... 
+
+만약 하나의 프로그램이 임의의 포인터로 Memory에 접근을 해서 값을 바꾸는 경우 OS가 이를 어떻게 처리할 것인가?에 대한 **Restricted Operation** 문제가 있고, 또한 무한루프가 돌고있는 프로그램이 있을 때 어떻게 다시 CPU에서 control을 가져올 것인가? 에 대한 **Switching Between Processes** 문제도 있다.
+
+이런 문제들을 위한 해결책이 바로 Limited Direct Execution인 것이다.
+
+### Problem 1. Restricted Operation
+
+Direct Execution은 CPU에서 바로 실행되어 속도가 빠르다는 장점이 있지만, 만약 disk에 파일을 I/O한다거나, CPU 또는 Memory에 대한 access을 갖는등의 Restricted Operation이 필요하다면 어떤 현상이 일어날까?
+
+뭐, 모든 권한을 다 줄 수도 있겠지만... 컴퓨터 내의 Disk, Memory들에 대한 모든 권한이 있다면, 컴퓨터 시스템을 망가트릴 수도 있을 것이다. 
+
+그렇기에 나온 해결책이 **protected control transfer**를 활용하는 것이다. **protected control transfer**라는 것을 활용하여 privileged operation, 즉 일종의 '특권 모드' 이라는 개념을 만들어서 mode를 **User mode** 와 **Kernel mode**라는 두가지 mode로 나누는 것이다.
+
+**User mode**로 돌아가는 프로그램은 하드웨어에 대한 제한적인 권한을 갖고, **Kernel mode**로 동작하면 모든 권한을 다 가질 수 있도록 하는 것이다.
+
+### System Call
+
+허나 만약 User mode인 상태에서 privileged operation을 원한다면? 이를 위한 해결책이 바로 **System Call**이다
+
+System Call을 통해 File System에 access, Process의 생성과 파괴, 다른 Process와 통신, Memory allocating등의 제한된 작업을 수행할 수 있는 것이다.
+
 
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
@@ -580,7 +610,7 @@ You can throw in some horizontal rules too:
 
 Here's a really neat custom feature we added – galleries:
 
-<div class="gallery" data-columns="3">
+<class="gallery" data-columns="3">
 	<img src="/images/demo/demo-portrait.jpg">
 	<img src="/images/demo/demo-landscape.jpg">
 	<img src="/images/demo/demo-square.jpg">
