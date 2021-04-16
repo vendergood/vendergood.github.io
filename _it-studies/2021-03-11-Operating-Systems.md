@@ -646,7 +646,7 @@ CPU Scheduling이란 실행가능한 Process가 주어질 경우, 다음에 무�
 
 Workload에 대한 가정 이외에도 **scheduling metric**을 이용해서 scheduling policies를 비교할 수 있다.
 
- $T<sub>turnaround time</sub> = T<sub>completion time</sub>-T<sub>arrival time</sub>$
+$$T<sub>turnaround time</sub> = T<sub>completion time</sub> - T<sub>arrival time</sub>$$
 
 여러가지 metric이 있겠지만 **turnaround time**(프로세스 완료까지 걸리는 시간)만을 사용할 것이다.
 
