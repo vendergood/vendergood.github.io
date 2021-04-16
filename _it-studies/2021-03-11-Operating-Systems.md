@@ -623,7 +623,32 @@ System Call에서 발생할 수 있는 문제들 때문에 **timer interrupt**�
 
 프로세스를 변경하기로 결정했다면 OS는 context switch를 실행하게 된다.
 
-###
+---------------
+## CPU Scheduling
+
+low-level mechanism (context switch)은 알게되었으니, 좀더 high-level의 **OS scheduling policies**에 대해서 알아보자.
+
+참고로 Policy란 '무엇을 해야 하는가' 에 해당하는 것이고, Mechanism이란 '결과물을 얻기위해 수행하는 일련의 기술, Process'에 해당하는 것이다.
+
+CPU Scheduling이란 실행가능한 Process가 주어질 경우, 다음에 무슨 Process를 실행해야 하는것에 대한 Policy이다.
+
+### Workload Assumption
+
+**Workload** 는 실행중인 Process에 대한 가정이다. 아래의 가정들을 할 것이다.
+
+1. 각각의 Process는 같은 시간동안 동작한다.
+2. 모든 Process는 같은 시간에 시스템에 도착한다. (시스템에 도달하는데 걸리는 시간이 모두 0이다)
+3. Process가 한번 시작하면 각 Process는 완료될 때 까지 동작한다.
+4. 모든 Process는 CPU만 사용한다.
+5. 각 Process의 run-time을 알고있다
+
+### Scheduling Metrics
+
+Workload에 대한 가정 이외에도 **scheduling metric**을 이용해서 scheduling policies를 비교할 수 있다.
+
+ $T<sub>turnaroun time<sub> = T<sub>turnaroun time<sub>-T<sub>turnaroun time<sub>$
+
+여러가지 metric이 있겠지만 **turnaround time**(프로세스 완료까지 걸리는 시간)만을 사용할 것이다.
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
