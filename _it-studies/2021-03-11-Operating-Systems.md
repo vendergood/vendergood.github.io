@@ -615,7 +615,15 @@ Cooperative Approach에서는 무한루프같은 문제가 발생했을 때 rebo
 
 System Call에서 발생할 수 있는 문제들 때문에 **timer interrupt**도 부팅시에 table을 지니고 있다.
 
+### Saving and Restoring Context
 
+이제 CPU에 대한 control을 다시 System Call을 기다리거나, time interrupt를 통해서 다시 가져올 수 있게되었다.
+
+남은 것은 현재 진행중인 Process를 더 진행할 것인지, 아니면 중단하고 다른 Process를 진행시킬 것인지에 대한 결정을 해야하는데, 이에 대한 결정은 scheduler가 하게된다.
+
+프로세스를 변경하기로 결정했다면 OS는 context switch를 실행하게 된다.
+
+###
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
