@@ -690,6 +690,42 @@ response time은 **Process가 시스템에 도달하는데 걸리는 시간**이
 
 따라서 response time에 민감한 scheduler가 필요해졌다.
 
+### Round Robin (RR) Scheduling
+
+Round Robin은 **Process를 잘게 쪼개서 실행한다(time slice, scheduling quantum)**. A,B,C라는 Process가 있고, 이것들을 5초동안 진행된다고 생각해보자.
+
+RR은 1초단위로 time slicing해서 평균 response time은 1이지만, SJF인 경우 평균 response time은 5가된다.
+
+RR에서는 time slicing을 하기 때문에 **몇번이나 time slincing을 하는지**가 매우 중요하다.
+
+time slice를 **많이 할 수록 response time에 대한 performance가 좋아지**지만,
+
+너무 많다면 **모든 resorce의 performance가 context swtiching에 집중되는 문제**가 있다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+turnaround time을 생각하면 RR은 딱히 좋지않다.
+
+위의 그림에서 볼 수 있듯이 평균 turnaround time은 무려 14초이다.
+
+일반적으로 time slicing을 통해서 CPU을 fair하게 나누는 policy들은 turnaround time을 생각했을 땐 성능이 좋지않다.
+
+이처럼 turnaround time과 response time은 **trade-off** 관계에 있다.
+
+### Incorporating I/O
+
+모든 프로그램은 I/O를 수행할 수 있다.
+
+프로그램이 I/O request를 수행하면 CPU를 사용하지 않는 **block**상태에 있기 때문에 schedler가 그동안 다른 Process를 CPU에 할당할 필요가 있다.
+
+그 후 I/O가 끝나면 다시 scheduler가 block상태에서 ready상태로 Process를 바꿔주어야 한다.
+
+예를들어 50ms동안 실행되는 Process A, B가 있다. A는 10ms 동안 I/O request를 수행하고 B는 I/O없이 실행된다.
+
+
+
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
