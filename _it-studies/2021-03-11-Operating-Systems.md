@@ -724,6 +724,43 @@ turnaround time을 생각하면 RR은 딱히 좋지않다.
 
 예를들어 50ms동안 실행되는 Process A, B가 있다. A는 10ms 동안 I/O request를 수행하고 B는 I/O없이 실행된다.
 
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+A를 실행할 때 I/O를 독립적으로 처리하고, 그 사이에 B를 선점하여 실행시키는 Overlap방식을 활용해서 효율적으로 Process를 운용할 수 있다.
+
+## MLFQ (Multi-Level Feedback Queue)
+
+그런데 아까 우리가 가장 처음에 한 가정 중 가장 말도 안되는 가정이 있다. 바로 '가정 5. 각 Process의 run-time을 알고있다'이다.
+
+그렇다면 이런 가정없이 어떤 Policy를 어떻게 써야할까...? 이 Issue를 해결하기 위한 MLFQ(Multi-Level Feedback Queue)에 대해 알아보자.
+
+MLFQ으로 해결하고자 하는 문제는 2개이다.
+
+1. turnaround time의 최적화 -> 하지만 우리는 프로그램이 얼마동안 실행될지 알 수 없다.
+2. response time의 최소화 -> response time을 최소화할 수 있는 Round Robin 같은 경우 turnaround time은 최악이다.
+
+### Basic Rule
+
+MLFQ는 priority를 갖는 여러 개의 queue를 갖고있다. 그리고 특정한 시간에 어떤 하나의 queue에는 실행 준비가 완료된 Process가 있다.
+
+그래서 MLFQ는 priority를 고려하여, 그 시간에 어떤 Process를 실행해야 하는지를 결정할 수 있다.
+
+같은 priority를 갖는 Process가 동시에 큐에 존재할 수 있기 때문에 이 경우에는 Round Robin 방법을 통해서 Process를 실행한다.
+
+MLFQ sheduling의 핵심은 priority를 어떻게 매기는가에 달려있다. MLFQ는 Observed behavior에 기반하여 priority를 매긴다.
+
+예를들어 키보드 입력을 기다리느라 반복적으로 CPU 에 대한 control을 양보하는 Process는 priority가 높고, 오랫동안 CPU 이용률이 높은 Process는 priority가 낮다. 이러한 방식이 대화형 Process가 동작하는 방식이다. 
+
+###  How to Change Priority 
+
+우리는 CPU control을 자주 양보하는 short-running Process와 CPU control을 오랫동안 갖고있는 longer-running Process 모두를 다뤄야 한다.
+아래는 priority 적용 알고리즘의 규칙이다.
+
+1. Process가 시스템에 도착하면 가장 높은 priority를 부여한다.
+2. Process가 실행되는 동안 모든 작업에 대해 time slice가 이루어진다면 priority를 하나 낮춘다.
+3. time slice가 끝나기 전에 CPU control을 양도한다면 같은 priority를 유지한다.
 
 
 
