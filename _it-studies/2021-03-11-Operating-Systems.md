@@ -550,9 +550,9 @@ Limited Direct Execution에 대해서 이야기 하기전에 Direct Execution에
 
 이런 문제들을 위한 해결책이 바로 Limited Direct Execution인 것이다.
 
-### Problem 1. Restricted Operation
+### Problem 1: Restricted Operation
 
-Direct Execution은 CPU에서 바로 실행되어 속도가 빠르다는 장점이 있지만, 만약 disk에 파일을 I/O한다거나, CPU 또는 Memory에 대한 access을 갖는등의 Restricted Operation이 필요하다면 어떤 현상이 일어날까?
+Direct Execution은 CPU에서 바로 실행되어 속도가 빠르다는 장점이 있지만, 만약 disk에 파일을 I/O한다거나, CPU 또는 Memory에 대한 access을 갖는등의 Restricted Operation이 필요하다면 어떤 문제가 일어나는가?
 
 뭐, 모든 권한을 다 줄 수도 있겠지만... 컴퓨터 내의 Disk, Memory들에 대한 모든 권한이 있다면, 컴퓨터 시스템을 망가트릴 수도 있을 것이다. 
 
@@ -564,8 +564,27 @@ Direct Execution은 CPU에서 바로 실행되어 속도가 빠르다는 장점�
 
 허나 만약 User mode인 상태에서 privileged operation을 원한다면? 이를 위한 해결책이 바로 **System Call**이다
 
-System Call을 통해 File System에 access, Process의 생성과 파괴, 다른 Process와 통신, Memory allocating등의 제한된 작업을 수행할 수 있는 것이다.
+System Call을 통해 File System에 access, Process의 생성과 파괴, 다른 Process와의 통신, Memory allocating등의 제한된 작업을 수행할 수 있는 것이다.
 
+System Call을 호출할 때 프로그램을 특정한 **trap 명령**을 수행한다.
+
+이 trap 명령은 User mode에서 Kernel mode로의 변경을 하게 해준다. 그 후 제한되었던 operation들을 수행한 후 특정한 **return-from-trap** 명령을 수행해서 다시 Kernel mode에서 User mode로 다시 되돌아오게 된다.
+
+##### Limited Direction Execution Protocol
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+그런데 위 그림과 같이, 하드웨어에서는 **trap 명령** 수행 후 **return-from-trap**할 때 다시 돌아와야할 Memory Address가 필요하기 때문에 좀 더 주의가 필요하다.
+
+예컨데 x86의 경우, Kernel stack에 program counter 및 flag등 여러가지의 register를 push한 후 명령을 수행할 때마다 pop을 해서 최종적으로는 **return-from-trap**을 수행해서 다시 User Program으로 돌아올 수 있도록 한다.
+
+그렇다면 trap 명령이 어떻게 OS안에서 어떤 명령을 수행해야하는지 알수 있는 것일까?
+
+이를 위해서 trap table이 부팅시에 설정된다. 이 **trap table**안에 trap 명령어들이 적혀있어서 OS가 하드웨어에게 특정한 이벤트가 발생했을 때, 또는 system call이 호출되었을 때 특정한 함수 - 물론 trap() 함수 - 를 실행하도록 할 수 있다.
+
+### Problem 2: Switching Between Processes
 
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
