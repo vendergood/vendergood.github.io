@@ -762,6 +762,68 @@ MLFQ sheduling의 핵심은 priority를 어떻게 매기는가에 달려있다. 
 2. Process가 실행되는 동안 모든 작업에 대해 time slice가 이루어진다면 priority를 하나 낮춘다.
 3. time slice가 끝나기 전에 CPU control을 양도한다면 같은 priority를 유지한다.
 
+##### A Single Long-Running Job
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+위의 그림에서 볼 수 있듯이 하나의 Long-Running Process가 있을 경우 처음에 Q2에 위치하고 time slice를 한 이후에 priority를 하나씩 내린다.
+
+##### Along Came A Short Job
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+검은색인 A는 long-running process, 회색인 B는 short-running process이다.
+
+A는 실행이후 Q2, Q1을 거쳐 가장 낮은 우선순위인 Q0에서 실행되고 있고, t=100일 때 B가 최상위 우선순위에 도착해서 실행된다.
+
+이 알고리즘에서 우리가 알아야할 것은 처음에 시스템에 들어오는 Process가 short-running process인지 long-running process인지 알 수 없기 때문에, short-running process라고 가정하고 높은 priority를 부여하는 것이다.
+
+만약 실제로 short-running process라면 실행되고 빠르게 종료될 것이고 아니라면 time slice를 통해서 queue의 아래로 점점 내려갈 것이다. 
+
+그래서 MLFQ가 SJF로 근사될 수 있게된다.
+
+### Problem With Our Current MLFQ
+
+이제 기본적인 MLFQ에 대해서는 알게되었지만, 현재 MLFQ에는 큰 문제가 있다.
+
+1. Starvation에 관한 문제이다. 너무 많은 interative한 작업이 계속된다면 long-running process는 절대 CPU control을 가질 수 없다.
+
+2. Gaming the scheduler에 대한 문제이다. 똑똑한 프로그래머는 time slicing이 끝나기 전에 I/O를 요청해서 계속해서 프로세스가 우선순위의 상단에 위치하게 할 수 있다. (rule 3을 악용하는 경우이다.)
+
+##### Priority Boost
+
+우선 첫번째로 Starvation에 대한 문제를 어떻게 해결하면 좋을까? 그 문제는 Priority Boost라고 하는 방법으로 해결할 수 있다.
+
+Priority Boost는 주기적인 시간마다 모든 process의 우선순위를 최상단으로 높여주는 방법이다.
+
+##### Better Accounting
+
+그 다음으로 Gaming the scheduler에 대한 문제는 어덯게 해결하면 좋을지에 대해서 생각해보자. 이는 Better Accounting이라고 부르는 방법으로 해결할 수 있다.
+
+process가 해당 queue에서 할당된 시간을 다 활용했다면 강제로 priority를 낮춰주는 것이다.
+
+### Tuning MLFQ And Other Issues
+
+몇가지 MLFQ에 대한 질문들이 남아있다.
+
+1. sheduler의 parameter는 어떻게 할 것인가?
+2. 몇개의 queue가 필요한가?
+3. queue당 time slice는 몇번을 해야하는가?
+4. priority boost는 얼마나 자주 일어나야 하는가?
+
+무엇하나 쉬운 질문이 없다.
+
+3에 대한 예를 들면 여러가지 queue에서는 여러가지 time slice length가 활용된다.
+
+priority가 높은 queue에서는 interative한 작업이 주로 이루어지므로 short time slice를 하고, priority가 낮은 queue에서는 long-running process가 주로 동작하므로 long time slice가 적합하다.
+
+운영체제마다 어떠한 규칙을 적용시킬 것인가에 대한 내용이 모두 다르다.
+
+
 
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
