@@ -1,3 +1,47 @@
+$\newcommand{\plr}{{\mkern3mu\mathrel{//}\mkern3mu}}
+\newcommand{\bigcdot}{\cdot}
+\newcommand{\bcd}{\bigcdot}
+\newcommand\expo[1]{^{#1}}
+\newcommand{\mrm}[1]{\mathrm{#1}}
+\renewcommand{\mit}[1]{\mathit{#1}}
+\newcommand{\ovl}[1]{\overline{#1}}
+\newcommand{\ovr}[1]{\overline{\mathrm{#1}}}
+\renewcommand{\bot}{\mkern-3mu\perp\mkern-3mu}
+\newcommand{\ppd}{\bot}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\idp}[4]{\dfrac{#3\cdot#2+#4\cdot#1}{#3+#4}}
+\newcommand{\tidp}[4]{\tfrac{#3\cdot#2+#4\cdot#1}{#3+#4}}
+\newcommand{\edp}[4]{\dfrac{#3\cdot#2-#4\cdot#1}{#3-#4}}
+\newcommand{\tedp}[4]{\tfrac{#3\cdot#2-#4\cdot#1}{#3-#4}}
+\newcommand{\comp}[2]{#1 \circ #2}
+\newcommand{\COMP}[3]{\left( #1 \circ #2 \right)\left(#3\right)}
+\newcommand{\intg}[3]{\int_{#1}^{#2}{#3}}
+\newcommand{\perm}[2]{{}_{#1}\mathrm{P}_{#2}}
+\newcommand{\comb}[2]{{}_{#1}\mathrm{C}_{#2}}
+\newcommand{\homo}[2]{{}_{#1}\mathrm{H}_{#2}}
+\newcommand{\PROD}[2]{{}_{#1}\Pi_{#2}}
+\newcommand{\PERM}[2]{{}_{#1}\mathrm{P}_{#2}}
+\newcommand{\COMB}[2]{{}_{#1}\mathrm{C}_{#2}}
+\newcommand{\HOMO}[2]{{}_{#1}\mathrm{H}_{#2}}
+\newcommand{\SNK}[2]{\mathrm{S}\left(#1,\:#2\right)}
+\newcommand{\PNK}[2]{\mathrm{P}\left(#1,\:#2\right)}
+\renewcommand{\P}[2]{{}_{#1}\mathrm{P}_{#2}}
+\renewcommand{\C}[2]{{}_{#1}\mathrm{C}_{#2}}
+\renewcommand{\H}[2]{{}_{#1}\mathrm{H}_{#2}}
+\newcommand{\E}[1]{\mathrm{E}\left(#1\right)}
+\newcommand{\V}[1]{\mathrm{V}\left(#1\right)}
+\newcommand{\SIG}[1]{\sigma\left(#1\right)}
+\newcommand{\PR}[1]{\mathrm{P}\left(#1\right)}
+\newcommand{\ND}[2]{\mathrm{N}\left(#1,\:#2\right)}
+\newcommand{\BD}[2]{\mathrm{B}\left(#1,\:#2\right)}
+\newcommand{\pr}[1]{\mathrm{P}(#1)}
+\newcommand{\pn}[2]{\mathrm{P}(#1\cap#2)}
+\newcommand{\pu}[2]{\mathrm{P}(#1\cup#2)}
+\newcommand{\abv}[1]{\left|\vec{\mathrm{#1}}\right|}
+\newcommand{\avi}[1]{\left|\vec{#1}\right|}
+\newcommand{\vrm}[1]{\vec{\mathrm{#1}}}$
+
+
 ---
 title: 'Operating Systems'
 subtitle: '운영체제·랩 관련 공부한 내용들'
