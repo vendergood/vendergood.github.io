@@ -650,6 +650,47 @@ T<sub>turnaround time</sub> = T<sub>completion time</sub> - T<sub>arrival time</
 
 여러가지 metric이 있겠지만 **turnaround time**(프로세스 완료까지 걸리는 시간)만을 사용할 것이다.
 
+### FIFO
+
+FIFO는 First In First Out의 약자로써, 단순해서 이해가 쉬운 Policy이다. 먼저 도착하면 먼저 실행된다는 개념이다.
+
+위와같은 상황에서 평균 turnaround time은 20초다.
+
+하지만 위와같은 상황에서는 평균 turnaround time은 110초로 상당히 길다. B, C는 실행 시간은 짧지만 대기시간이 너무 길다는 단점이 있다.
+
+### Shortest Job First
+
+Shortest Job First은 이름 그대로 실행시간이 짧은 Process부터 먼저 실행하겠다는 것이다.
+
+우리의 가정들로 봤을 때 시스템에 모두 동시에 Process가 안착하고, 실행시간도 알고있으므로 최적의 scheduling policy이다.
+
+하지만 실제는 이렇지 않으므로 이상적인 이야기에 불과하다.
+
+실제로 A가 0초에 시스템에 도착해서 실행되고, B,C는 시스템에 도착하기까지 10초가 걸린다면 실제 실행결과는 위와같게된다.
+
+### Shortest Time-To-Completeion First
+
+이 방법은 Process를 실행할 때 **preempt(선점)** 하는 방식으로 진행된다. 
+
+위에서 한 '가정 3. Process가 한번 시작하면 각 Process는 완료될 때 까지 동작한다'를 조금 변경하여 Process가 끝까지 진행되는 것이 아니라 앞서 배운 timer interrupt처럼 동작되는 것이다.
+
+위의 그림처럼 A라는 Process를 선점하고 새로운 B, C Process가 시스템에 도착했을 때 종료되는 시간이 더 짧으면 A를 멈추고 B, C 즉, 더 짧게 걸리는 Process 먼저 실행하는 것이다.
+
+### Response Time
+
+과거의 일괄처리 시스템(batch computing system)에서는 STCF가 적합했다. 하지만 Time-shared machine이 도입되면서 상황이 바뀌었다.
+
+이제 User는 터미널을 통해서 컴퓨터 시스템과 상호작용하게되었기 때문에 **response time**이라는 metric이 새롭게 필요해졌다.
+
+T<sub>response</sub> = T<sub>firstrun</sub> - T<sub>arrival</sub>
+
+response time은 **Process가 시스템에 도달하는데 걸리는 시간**이다.
+
+터미널을 열고, 명령어를 입력하고 10초 뒤에나 시스템으로부터 response가 온다면 생각만해도 끔찍하다..
+
+따라서 response time에 민감한 scheduler가 필요해졌다.
+
+
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
 **Obviously,** we’ve styled up *all the basic* text formatting options [available in markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
