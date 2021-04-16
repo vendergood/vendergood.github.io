@@ -1,4 +1,3 @@
-
 ---
 title: 'Operating Systems'
 subtitle: '운영체제·랩 관련 공부한 내용들'
