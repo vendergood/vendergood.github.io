@@ -580,11 +580,41 @@ System Call을 호출할 때 프로그램을 특정한 **trap 명령**을 수행
 
 예컨데 x86의 경우, Kernel stack에 program counter 및 flag등 여러가지의 register를 push한 후 명령을 수행할 때마다 pop을 해서 최종적으로는 **return-from-trap**을 수행해서 다시 User Program으로 돌아올 수 있도록 한다.
 
-그렇다면 trap 명령이 어떻게 OS안에서 어떤 명령을 수행해야하는지 알수 있는 것일까?
+그렇다면 trap 명령이 어떻게 OS안에서 어떤 명령을 수행해야하는지 알수 있는 것인가?
 
 이를 위해서 trap table이 부팅시에 설정된다. 이 **trap table**안에 trap 명령어들이 적혀있어서 OS가 하드웨어에게 특정한 이벤트가 발생했을 때, 또는 system call이 호출되었을 때 특정한 함수 - 물론 trap() 함수 - 를 실행하도록 할 수 있다.
 
 ### Problem 2: Switching Between Processes
+
+Direct Execution의 또다른 문제인 Switching Between Processes에 대해서 알아보자. 이는 Process간 switch를 어떻게 할 것인가에 대한 문제이다.
+
+만약 Process가 CPU에서 동작중이라면, CPU는 한번에 한가지의 동작을 수행하기 때문에 그 말은 즉 OS는 동작하고 있지 않다는 것이다. 
+
+그렇다면 어떻게 OS가 동작중인 Process에서 control을 가져와서 다른 Process에 할당할 수 있을까?
+
+이 문제에 대해서 두가지 방법을 생각해볼수 있다. 하나는 Cooperative Approach와 하나는 Non-Cooperative Approach 이다.
+
+### Cooperative Approach: Wait For System Calls
+
+Cooperative Approach, 즉 협력적인 방법에서는 OS가 시스템의 Process를 신뢰한다. 
+
+너무 오랫동안 동작하는 Process는 control을 포기하는 것으로 OS가 다른 작업을 할 수 있게 한다. 그런데 너무 오랫동안 동작하는 Process가 없는 경우가 있을 수 있기 때문에 Cooperative Approach는 다음의 2가지의 상황을 기다린다.
+
+1. System Call이 호출될 때, 이때 호출되는 System Call은 Yield System Call이라고 불리며 System Calll을 호출해서 현재 Process가 가진 control을 OS에게 양보하는 기능을 한다.
+2. illegal한 상황이 발생할 때 OS로 trap을 생성하여 OS가 control을 가질 수 있도록 한다.
+
+그런데 만약 illegal하지 않은 무한루프가 발생하고, System Call도 발생하지 않는다면?
+
+### Non-Cooperative Approach: The OS Takes Control
+
+하드웨어의 도움없이는 OS가 system call의 거부에서 다시 control을 얻어도 할 수 있는 것이 아무것도 없다.
+
+Cooperative Approach에서는 무한루프같은 문제가 발생했을 때 rebooting말고는 답이없다. 그래서 Non-Cooperative Approach, 즉 비협력적인 방법에선 **timer interrupt**라는 것을 사용한다.
+
+매 ms(millisecond)마다 **주기적으로** interrupt를 확인해서 interrupt가 발생하면 **interrupt handler**를 동작시켜 OS가 다시 CPU의 control을 가질 수 있도록 한다.
+
+System Call에서 발생할 수 있는 문제들 때문에 **timer interrupt**도 부팅시에 table을 지니고 있다.
+
 
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
