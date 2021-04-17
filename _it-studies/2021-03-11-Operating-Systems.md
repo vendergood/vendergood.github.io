@@ -982,6 +982,56 @@ OS는 새로운 Process가 실행되면 free list라고하는 자료구조를 �
 
 그리고 OS는 exception handler를 제공해야 한다.
 
+*****
+## Segmentation
+
+위 그림에서 보면 알 수 있듯이 address space를 구성할 때 실제 물리적 메모리에는 free space가 있기 때문에, base and bound 방법은 우리가 생각하는 것 만큼 유용하지 않을 수 있다.
+
+### Generalize Base and Bound
+
+이러한 문제를 해결하기 위해 segmentation이라는 방법이 나왔다.
+
+이 개념은 쉽게 말해 CPU에만 한 쌍으로 존재하는 base and bound register를 address apce의 논리적인 segment마다 갖고 있는것을 말한다.
+
+segment란 address space에서의 연속적인 부분을 뜻하는데, 우리는 이 부분들이 code, stack, heap의 3개의 논리적 segment를 알고 있다.
+
+각각의 segment를 physical Memory의 서로 다른 부분에 독립적으로 배치하여 사용되지 않는 virtual address space가 생기는 것을 막을 수 있다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+위 그림에서 알 수 있듯이 실제 physical Memory의 서로 다른 영역에 어떤 한 Process의 stack, code, heap segment가 독립적으로 존재하고, 
+
+또 다른 Process의 stack, code, heap이 사용되고 있지 않은 not in use space에 위치한다면, 사용되지 않는 virtual address space가 생기는 것을 최대한 막을 수 있다.
+
+따라서 각 segment마다 base and bound register가 존재하면 아래와 같은 모습이 된다.
+
+### Which segment Are We Referring to?
+
+transition시에 하드웨어는 segment register를 사용한다.
+
+그렇다면 어떻게 segment의 시작위치와, address를 아는 것일까?
+
+explicit approach라 불리는 방법인데, virtual address의 상위 몇 비트를 기반으로 address space를 segment로 분할하는 기법이다.
+
+우리는 stack, heap, code의 3가지 segment가 있기 때문에 2개의 비트가 필요하다.
+
+만약 14비트의 virtual address에서 2비트를 segment로 잡으면 virtual address는 다음과 같아진다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+그래서 만약 상위 2개의 비트가 00이면 code영역으로 생각하고, 01이면 heap영역으로 생각하면 아래와 같은 그림이 된다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+따라서 상위 2개의 비트는 segment를 판별하는데 사용하고, 하위 12개의 bit는 offset으로 사용한다. 
+
+base register에 offset을 더함으로써 실제 물리적 메모리에서의 위치를 알 수 있다. (base register에 virtual address를 더하는 것이 아니라는 점에 유의하자!)
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
