@@ -1073,15 +1073,23 @@ code segment를 읽기전용으로 설정하므로써 multi-process에서 독립
 
 이를 위해서 각각의 프로세스가 가지고 있는 virtual address의 base and bound register를 저장했다가 프로세스 재시작 전에 다시 불러와야 한다는 점을 알 수 있을 것이다.
 
-segment의 크기가 커지거나, 줄어들 때 OS는 어떤 관련이 있는가?
+2. segment의 크기가 커지거나, 줄어들 때 OS는 어떤 관련이 있는가?
 
 예를들어 현재 heap segment의 크기만으로 malloc()을 감당할 수 있는 경우에는 할당을하면 되지만 이 크기를 넘어서는 새로운 메모리를 할당해야할 경우에는 sbrk()라는 시스템 콜을 해서 heap segment의 크기를 증가시킨다. 그래서 변화된 크기만큼을 다시 register에 등록하고 메모리 할당을 성공할 수 있다. 하지만 만약 물리적인 메모리 자체가 모자르다면 OS는 메모리할당을 거부할 수도 있다는 것을 명심히자.
 
-2. 물리적 메모리의 free space를 어떻게 관리 할 것인가?
+3. 물리적 메모리의 free space를 어떻게 관리 할 것인가?
 
 일반적으로 프로세스마다 segment가 생길 것이고 이 크기는 제각각일 것이다. 따라서 물리적 메모리의 중간 중간에는 free space의 구멍이 뻥뻥 뚫려있을 것이고 이는 새로운 segment의 할당을 어렵게 만들 것이다. 이러한 문제를 external-fragmentation라고 부른다.
 
 따라서 segment들을 재조정하여 물리적 메모리를 compact하게 사용함으로써 문제를 해결할 수 있다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+하지만 segment들을 재조정하는 방식은 매우 무거운 작업이다. 예를들어 재조정이 끝난 이후에 중간에 있는 프로세스의 heap segment가 증가되야 한다면 또 다시 추가적인 재조정이 일어나야만 한다.
+
+따라서 좀 더 간단한 방법은 할당에 필요한 큰 메모리 공간을 유지하려는 free-list를 관리하는 것이다. 이 외에도 여러가지 알고리즘을 통해서 external-fragmentation을 해결하기 위해 노력하지만 external-fragmentation을 없앨 수는 없고 최소화 할 뿐이다.
 
 
 
