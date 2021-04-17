@@ -824,6 +824,163 @@ priority가 높은 queue에서는 interative한 작업이 주로 이루어지므
 운영체제마다 어떠한 규칙을 적용시킬 것인가에 대한 내용이 모두 다르다.
 
 
+## Address Translation
+
+CPU를 가상화 하기위해서는 Limited Direct Execution을 활용했다.
+
+Memory 가상화를 제공할 때도 효율성과 통제권(Efficiency and Control)을 얻기위해서 비슷한 방법이 필요하다.
+
+효율성을 위해서는 분명히 하드웨어가 뒷받침되어야 하고, 처음에는 register 정도로 간단하지만 필요한게 더 많아지다보면 점점 complex해지는 문제가 있다.
+
+통제권을 위해서는 프로그램이 아무 Memory에 접근하지 못하도록 막을 필요가 있다. 따라서 역시 하드웨어가 뒷받침 되어야 한다.
+
+마지막으로 Flexibility를 위해서 Memory 가상화 시스템이 필요하다.
+
+왜냐하면 특히 우리는 프로그램이 물리적 메모리의 어디에 있건, address space에서 동작하길 원하기 때문이다.
+
+이를 위해서 LDE와 같은 hardware-based address transition(address transition)이라고 불리는 방법을 사용해 볼 것이다.
+
+address transition을 통해 하드웨어는 각각의 메모리 접근(명령 저장하기, 불러오기..)을 virtual address에서 실제 physical address로 변환한다. 그래서 모든 프로그램으로의 Memory 참조는 사실 하드웨어가 프로그램의 Memory 참조를 실제 물리적 메모리로 redirect한, address transition의 결과이다.
+
+물론 하드웨어만으로는 Memory를 효율적으로 활용하기 위한 낮은 수준의 mechanisim만 제공할 뿐임으로 Memory 가상화를 수행할 순 없다. 따라서 OS가 적절한 때에 하드웨어를 호출하여 적절한 transition이 발생하도록 해야한다. 따라서 이를 위해 어떤 Memory가 비어있고, 어떤 Memory는 사용중인지를 추적하기 위한 Memory 관리가 필수적이다.
+
+Address Translation을 위한 다음의 세가지 가정이 있다
+
+1. address space는 physical memory의 연속적인 공간에 위치한다.
+2. address space는 너무 크지 않다.
+3. 모든 address space의 크기는 같다.
+
+### Example: Address Translation
+
+address transition를 수행하기 위해 무엇을 해야하는지, 그리고 왜 이러한 mechanism이 필요한지를 알기위한 예제를 보자.
+
+아래와 같은 코드가 있을 때
+
+##### C - Language code
+
+```html
+void func()
+	int x;
+	...
+	x = x + 3; // this is the line of code we are interested in
+```
+
+컴파일러가 이 코드를 아래와 같이 바꾼다.
+
+##### Assembly
+
+```html
+128 : movl 0x0(%ebx), %eax ; load 0+ebx into eax
+132 : addl $0x03, %eax ; add 3 to eax register
+135 : movl %eax, 0x0(%ebx) ; store eax back to mem
+```
+
+x의 주소는 ebx에 존재하고, eax에 3을 더하고, eax에 있던 값을 메모리로 옮긴다
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+이 코드를 address space에서 살펴보면 위와 같다. 코드는 주소 128, 코드섹션에 있고, x는 3000, stack영역에 있다. 
+
+그리고 아래와 같은 메모리 엑세스를 수행한다.
+
+
+• 주소 128에 있는 명령을 가져온다.
+• 명령을 수행한다. (load from address 15 KB)
+• 주소 132의 명령을 가져온다.
+• 명령을 수행한다. (no memory reference)
+• 주소 135의 명령을 수행한다.
+• 명령을 수행한다. (store to address 15 KB)
+
+프로그램의 관점에서 해당 프로그램의 address space는 0에서 시작해서 16KB의 크기를 갖고, 모든 메모리참조는 이 범위내에서 이루어진다. 그러나 OS는 메모리 가상화를 위해 이 address space에서의 참조를 실제 physical memory로 전달해주어야 한다.
+
+그렇다면 어떻게 Process에 transparent하게 memory에서 이 Process를 재배치 할 것인가?
+또한 어딘가에 있는 실제 physical memory가 0에서 시작하는 가상의 address space라는 환상을 어떻게 제공할 것인가?
+
+### Dynamic(hardware-based) relocation
+
+1950년대 time-sharing 기계에서 소개된 base-and-bound, dynamic relocation라는 기술이다.
+
+이를 위해서 CPU에 있는 base register, bound(limit)register라는 2가지 하드웨어가 필요하다. 
+
+base-and-bound를 통해서 우리는 물리적 Memory가 어디에 있건 Process가 자신의 address space에 있는것 처럼 만들 수 있다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+프로그램은 자신이 0번 주소에 위치한 것 처럼 작성되고, 컴파일 된다. 그리고 프로그램이 실행될 때 OS는 물리적 메모리의 어떤 위치에 프로그램을 올리고, base-register에 해당 주소값을 할당해야 한다.
+
+위의 그림에서 보면 OS는 물리적 메모리의 32KB에 프로그램을 올리고, base-register에 이 주소값을 할당한다.
+
+따라서 메모리 참조가 발생할 때 이는 이렇게 해석될 수 있다.
+
+```html
+physical address = virtual address + base(register value)
+```
+
+program counter(PC)가 128에 설정되어있고, 
+
+OS는 프로그램이 위치하는 주소인 32KB(32768)를 base register로 만들고 해당 base register에 명령의 주소값(128)을 더해주어 물리적 메모리의 주소(32896)를 얻는다. 
+
+그 다음 하드웨어가 명령을 가져오고, 프로세서가 명령을 수행한다.
+
+```html
+128: movl 0x0(%ebx), %eax
+```
+
+그 후 프로세서가 가상주소에서 15KB만큼 로드를 발행시킨다. 따라서 실제 물리적 메모리에서는 32KB + 15KB = 47KB까지의 메모리가 활용된다.
+
+이러한 address relocation은 runtime시에 발생하기 때문에 프로그램이 실행중이더라도 수행될 수 있고 이러한 이유 때문에 dynamic relocation이라고 부른다.
+
+그렇다면 base-and-bound에서 base의 역할은 알았는데 bound(limit)의 역할은 무엇일까?
+
+bound(limit) register는 protection을 위한 기능을 한다.
+
+프로세서는 항상 bound 내부에서 메모리 참조가 이루어져야 하고, 이 예시에서는 bound가 16KB로 제한돼있기 때문에 이 bound보다 작거나, 큰 주소를 참조하려 할 경우에는 exception을 발생시키고 프로그램을 종료시킨다.
+
+따라서 bound register는 2가지 기능을 한다고 할 수 있다.
+
+1. address space의 크기를 나타낸다.
+2. physical memory에서 address space의 끝을 나타낸다.
+
+그리고 base, bound register는 CPU에 쌍으로 존재하는 하드웨어라는 점을 명심해야한다.
+
+```html
+ASIDE : Software-base relocation
+
+hardware-base relocation이 도입되기 이전엔 software-base relocation이 사용되었다. 
+static-relocation이라고도 하며, loader라고 불리는 소프트웨어가 실행되려고 하는 프로그램을 가져와서 실제 물리적 메모리의 적절한 시작위치에 메모리를 재배치 시킨다.
+
+예를들어 명령이 1000번 주소에 있고 address space가 3000에서 시작한다면 loader는 프로그램을 0이 아닌 3000의 위치로 옮긴다. 따라서 명령행은 4000번 주소에 위치한다.
+이러한 static-relocation은 다음과 같은 문제가 있다.
+
+1. protection을 제공하지 못함
+2. 한번 relocation이 이루어진 후 또다른 위치로 relocation을 수행하기 어렵다고 한다.
+```
+
+### Operating System Issue
+
+Memory 가상화를 달성하기 위해서 OS와 hardware가 결합되어야 한다.
+
+OS는 새로운 Process가 실행되면 free list라고하는 자료구조를 통해 어떤 Memory 공간이 비어있고, 어떤 Memory 공간이 사용중인지를 파악한다. 
+
+그래서 비어있는 Memory 공간에 새로운 Process를 할당하고 사용중으로 변경시킨다. 
+
+물론 Process마다 사용하는 address space의 크기가 다를것이고, 실행되는 기간도 다르겠지만 이러한 문제점들은 나중에 알아보도록하자.
+
+위의 그림에서 볼 수 있듯이 OS는 물리적 Memory의 가장 처음부터 실행되며 2개의 free space가 존재한다. 따라서 free list에는 2개의 free list가 존재한다. 그리고 프로그램이 문제를 일으켜서 OS가 강제로 종료하게되는 경우 해당 Memory를 다시 free list에 추가 해 두어야 한다.
+
+그리고 CPU에는 1쌍의 base-and-bound register만 있기 때문에 context switch마다 OS는 각각의 프로세스의 base, bound register의 값을 process structure 또는 Process Control Block(PCB)라고 불리는 자료구조에 저장하고, 불러올 수 있어야 한다.
+
+프로세스의 address space를 옮기기 위해서 OS는
+
+1. 프로세스를 deschedule한다.
+2. 현재의 address space를 옮길 address space로 복사한다.
+3. base register를 새로운 address space에 업데이트한다.
+
+그리고 OS는 exception handler를 제공해야 한다.
 
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
