@@ -1031,7 +1031,59 @@ explicit approach라 불리는 방법인데, virtual address의 상위 몇 비�
 
 따라서 상위 2개의 비트는 segment를 판별하는데 사용하고, 하위 12개의 bit는 offset으로 사용한다. 
 
-base register에 offset을 더함으로써 실제 물리적 메모리에서의 위치를 알 수 있다. (base register에 virtual address를 더하는 것이 아니라는 점에 유의하자!)
+base register에 offset을 더함으로써 실제 물리적 메모리에서의 위치를 알 수 있다. 
+
+(base register에 virtual address를 더하는 것이 아니라는 점에 유의하자!)
+
+### What about Stack?
+
+stack은 위의 그림에서 28KB에 위치해있고, 더 작은 주소값으로 즉 0KB 방향으로 크기가 증가한다. 28KB -> 16KB -> 14KB....로 변한다. 
+
+그리고 추가적으로 base and bound register외에도 어떤 방향으로 segment가 증가하는지를 알기위한 하드웨어가 필요하다. 예를들어 비트가 1로 설정되어있으면 positive방향으로 0이라면 negative방향으로 segment가 증가한다.
+
+예를들어 virtual address 15KB 실제로는 physical address 27KB에 접근하려한다. 2진수로는 11 1100 0000 0000(hex 0x3C00)이다. 하드웨어는 상위 2개 비트를 사용하여 segment를 결정한다. 따라서 남은 offset은 3KB이다. 올바른 negative offset을 얻기위해서 3KB에서 최대 offset의 크기인 4KB를 빼야한다. 
+
+base register인 28KB에서 negative offset인 -1KB를 더해서 물리적 메모리인 27KB를 알 수 있다. bound check는 negative offset의 절대값이 segment의 현재 크기보다 작거나 같은지를 확인하여 파악할 수 있다 (이 경우 2KB).
+
+
+### Support for Sharing
+
+메모리를 절약하기 위해서 특정한 메모리 segment를 공유하는것이 효과적임을 알게되었다. 특히 code sharing은 여전히 유용하다.
+
+sharing을 위해서 protection bits의 형태로 하드웨어의 도움이 필요하다. 
+
+기본적으로 프로그램이 segment를 읽거나 쓸 수 있는지 또는 segment내에 있는 코드를 실행할 수 있는지의 여부를 나타내는 segment당 몇개의 비트를 추가한다. 
+
+code segment를 읽기전용으로 설정하므로써 multi-process에서 독립성을 훼손하지 않으면서 코드를 공유하는 것이 가능하고, 여전히 프로세스들은 자신만의 private 메모리를 소유하고있다고 생각한다.
+
+### Fine-grained vs Coarse-grained Segmentation
+
+지금까지 살펴본 내용은 시스템에서 고작 몇개의 segment(code, stack, heap)만을 알아보았다. 
+
+이런 비교적 거대한 segment들을 I'm coarse-grained segmentation이라고 부른다.
+반면에 초기의 시스템에는 flexible함이 필요했기 때문에 크기가 더 작고 개수가 더 많은 fine-grained segmentation이 필요했다.
+
+많은 segment들이 더 많은 하드웨어의 지원과 메모리에 저장된 segment table이 필요하게 되었다. segment table을 활용함으로써 시스템은 좀 더 flexible한 방식으로 많은 개수의 segment를 만들어서 활용할 수 있게되었다.
+
+### OS Support
+
+이제 segmentation이 어떻게 동작하는지를 알게되었다. 하지만 segmentation은 OS에게 몇가지 문제를 야기한다.
+
+1. context switch시에는 어떻게 할 것인가?
+
+이를 위해서 각각의 프로세스가 가지고 있는 virtual address의 base and bound register를 저장했다가 프로세스 재시작 전에 다시 불러와야 한다는 점을 알 수 있을 것이다.
+
+segment의 크기가 커지거나, 줄어들 때 OS는 어떤 관련이 있는가?
+
+예를들어 현재 heap segment의 크기만으로 malloc()을 감당할 수 있는 경우에는 할당을하면 되지만 이 크기를 넘어서는 새로운 메모리를 할당해야할 경우에는 sbrk()라는 시스템 콜을 해서 heap segment의 크기를 증가시킨다. 그래서 변화된 크기만큼을 다시 register에 등록하고 메모리 할당을 성공할 수 있다. 하지만 만약 물리적인 메모리 자체가 모자르다면 OS는 메모리할당을 거부할 수도 있다는 것을 명심히자.
+
+2. 물리적 메모리의 free space를 어떻게 관리 할 것인가?
+
+일반적으로 프로세스마다 segment가 생길 것이고 이 크기는 제각각일 것이다. 따라서 물리적 메모리의 중간 중간에는 free space의 구멍이 뻥뻥 뚫려있을 것이고 이는 새로운 segment의 할당을 어렵게 만들 것이다. 이러한 문제를 external-fragmentation라고 부른다.
+
+따라서 segment들을 재조정하여 물리적 메모리를 compact하게 사용함으로써 문제를 해결할 수 있다.
+
+
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
 
