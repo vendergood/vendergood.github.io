@@ -1091,6 +1091,76 @@ code segment를 읽기전용으로 설정하므로써 multi-process에서 독립
 
 따라서 좀 더 간단한 방법은 할당에 필요한 큰 메모리 공간을 유지하려는 free-list를 관리하는 것이다. 이 외에도 여러가지 알고리즘을 통해서 external-fragmentation을 해결하기 위해 노력하지만 external-fragmentation을 없앨 수는 없고 최소화 할 뿐이다.
 
+*****
+## Free-space Management
+
+이번 장에서는 근본적인 메모리 관리, 특히 free-space management에 대한 내용을 중점적으로 살펴볼 것이다.
+
+관리하는 Memory 공간을 고정된 크기(fixed-size unit)로 나누면 쉽다. 고정된 크기의 Memory 리스트를 갖고있다가 요청이 오면 리스트의 첫번째 원소를 리턴하면 된다.
+
+하지만 free-space가 다양한 크기의 메모리 유닛으로 구성되어진다면 관리하는 것이 어려워진다. 이것은 유저레벨에서의 메모리 할당과 해제( malloc(), free() ), virtual memory를 활용하기 위해 OS가 실행하는 segmentation, external-fragmentation등에서 찾아볼 수 있다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+위의 그림에서 볼 수 있듯이 free-space는 총 20byte인데 fragmented되어있기 때문에 15byte의 할당이 필요한 요청은 실패하게된다.
+
+### Low-level mechanism
+
+allocator들의 splitting(나누기), coalescing(합치기) 방법과 어떻게하면 빠르고 쉽게 할당한 메모리 크기를 알 수 있는지에 대해서 알아볼 것이다. 
+
+그리고 free-space를 파악할 수 있는 간단한 free list에 대해서 알아볼 것이다.
+
+##### Splitting and Coalescing
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+위의 그림에서 볼 수 있듯이 총 30byte의 heap segment에서 0-9, 20-29byte가 free-space이다.
+
+언급했듯이 10byte 이상의 메모리 할당은 실패할 것이다. 정확하게 10byte의 요청이 오면 쉽게 성공 할 것인데 만약 10byte보다 더 작은 메모리 할당 요청이 온다면 어떻게될까...?
+
+예를들어 free list에 10byte의 free chunk가 존재하는데 1byte의 할당 요청이온다면 이 경우 splitting이라는 방법을 활용하게된다.
+
+그래서 1byte를 할당할 수 있는 free list에 존재하는 2개의 free chunk에서 allocator가 2번째(20-29)를 사용하기로 했다면 2번째 free chunk를 2개의 chunk로 splitting한다.
+
+그래서 첫번째 chunk는 1byte를 할당하고 두번째 chunk는 그대로 free list에 남아있는다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+따라서 free list에서는 20-29byte를 차지하던 2번째 chunk가 21-29byte로 크기가 변하게된다.
+이처럼 free chunk보다 요청되는 메모리의 크기가 더 작을 때 splitting이 유용하게 사용된다.
+
+그렇다면 또다른 예시로 만약 사용중이던 10byte의 메모리를 free()한다면 어떻게될까?
+
+그렇다면 단순하게 free list에 반환된 10byte만큼을 아래와같이 추가하면 된다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+만약 10byte씩 3개의 chunk로 나뉜 상태에서 20byte의 할당 요청이 들어온다면 당연히 할당에 실패할 것이다. 이러한 문제를 해결하기위해서 allocator는 3개의 free chunk를 하나의 free chunk로 coalescing한다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
+## Tracking The Size Of Allocated Regions
+
+free()에 해제해야 하는 Memory의 크기가 없다는 것을 알고있으므로, 우리는 해제 할 포인터를 매개변수로 받았을 때 해제되어야 할 크기를 파악하고, 해제된 Memory를 free list에 추가해야함을 알고있다.
+
+이를 위해서 대부분의 allocator들은 약간의 Memory를 더 써서 head block이라는 곳에 추가적인 정보를 저장하고 있다.
+
+예를들어 20byte의 Memory를 할당받았다고 하자, 이때 헤더에는 해제를 위한 포인터주소와, 무결성검사를 제공하기 위한 magic number 및 기타 다른 정보들을 갖고있다.
+
+<div class="gallery" data-columns="3">
+	<img src="/images/under-construction.jpg">
+</div>
+
 
 
 We've included everything you need to create engaging posts about your work, and show off your case studies in a beautiful way.
