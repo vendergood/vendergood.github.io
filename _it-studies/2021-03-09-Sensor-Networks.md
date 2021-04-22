@@ -11,29 +11,43 @@ featured_image: '/images/under-construction.jpg'
 ## 인터넷이란?
 
 ### 인터넷이란? : 구성요소 관점
-* computing device 사이에는 엄청나게 많은 연결이 존재한다.
+
+computing device 사이에는 엄청나게 많은 연결이 존재한다.
+
 -> 이러한 장치들을 host 또는 end system 이라고 부른다.
+
 -> 서버, PC, 패킷 교환기(router, switch), 기지국 등의 장치들이 있다.
+
 -> end system 들은 Communication link 와 Packet switch를 통해 거미줄처럼 모두 연결되어 있다.
 
 #### Communication links
+
 데이터를 전달하는 매체로 동축 케이블, 구리선, 광케이블, 라디오 스펙트럼 등의 물리 매체로 구성되어 있다.
+
 -> transmission rate(전송률) : bandwidth(대역폭) 이라고도 한다. 각각의 링크들이 가지는 데이터 전송 속도로 초당 비트수(bps)로 나타낸다.
 
 #### Packet switchs
+
 중간에 데이터 전달을 위해 있는 디바이스들로 router와 switch가 있다.
--> Packet : 한 end system에서 다른 end system으로 데이터를 보낼 때 그 데이터를 세그먼트(segment) 단위로 나누고 헤더(header)를 붙여서 만든 데이터 덩어리 이다. 받는 end system 에서는 받은 packet들을 원래의 데이터로 재조립 한다.
+
+-> **Packet** : 한 end system에서 다른 end system으로 데이터를 보낼 때 그 데이터를 세그먼트(segment) 단위로 나누고 헤더(header)를 붙여서 만든 데이터 덩어리 이다. 받는 end system 에서는 받은 packet들을 원래의 데이터로 재조립 한다.
 
 #### Internet
+
 네트워크의 네트워크로 ISP 간의 연결이다.
+
 -> ISP(Internet Service Provider) : end system들은 ISP를 통해 인터넷에 접속한다. 통신사들이 대표적인 예이다. 그리고 각각의 ISP들 끼리도 연결되어 있어야 한다. 또한 ISP 사이에도 계층이 존재한다.
 
 #### Protocol
+
 메세지(데이터)의 전달, 회수 컨트롤 하는 통신 규약이다.
--> TCP/IP, HTTP, Skype 등이 있다.
+
+-> **TCP/IP, HTTP, Skype** 등이 있다.
 
 #### Internet Standards
+
 인터넷에 적용되는 기술들을 동일하게 적용 될 수 있도록 정하는 표준이다.
+
 
 ### 인터넷이란? : 서비스 관점
 어플리케이션이 작동할 수 있도록 서비스를 제공해 주는 인프라구조 이다.
@@ -49,8 +63,11 @@ featured_image: '/images/under-construction.jpg'
 
 ## Network edge
 Network edge - 네트워크 가장자리
+
 hosts(직접 통신하는 end system) : 클라이언트(client), 서버(server)가 있다.
+
 -> 클라이언트는 보통 사용자 즉, PC나 모바일 등을 의미한다.
+
 -> 서버는 보통 데이터 센터에 존재한다.
 
 ### Access networks and physical media
@@ -63,18 +80,25 @@ hosts(직접 통신하는 end system) : 클라이언트(client), 서버(server)�
 #### DSL(digital subsciber line)
 
 전화선을 이용해 인터넷 접속 서비스를 받는다.
+
 -> DSLAM을 이용해 voice(전화)는 전화망으로, data는 인터넷 쪽으로 보낸다.
+
 -> upstream(집->서버)의 전송률 < 2.5 Mbps (typically < 1Mbps)
+
 -> downstream(서버->집)의 전송률 < 24 Mbps (typically < 10Mbps)
+
 -> 요즘은 잘 사용하지 않는다.
 
 #### cable network
 
 케이블을 활용해 인터넷에 접속한다.
+
 -> HFC : 구리와 광을 이용한 케이블로 downstram의 전송률은 < 30Mbps, upstream의 전송률은 < 2Mbps로 up/down stream의 전송속도가 다르기 때문에 접속이 비대칭(asymmetric)이라 한다.
 
 케이블을 통해 가정을 ISP 라우터에 연결한다.
+
 -> 각 집들은 cable headend로 가는 access network를 공유한다.
+
 -> DSL(dedicated access)과 달리 shared access로 여러 집에서 공유된다.(여러 가구가 동시에 다운하면 나눠서 하기 때문에 시간이 느려진다.)
 
 Frequency division multiplexing : 신호의 주파수에 따라 보내는 내용(데이터, 비디오 등) 구분이 가능하다.
@@ -85,8 +109,11 @@ Frequency division multiplexing : 신호의 주파수에 따라 보내는 내용
 #### Enterprise access networks(Ethernet)
 
 주로 회사, 대학 등에서 사용한다.
+
 -> 스위치를 통해 부서, 학과 별로 인터넷이 연결되도록 한다.
+
 -> 전송률이 10Mbps ~ 10Gbps 까지 나온다.
+
 -> 상호 연결된 스위치들이 더 큰 인터넷으로 연결된다.
 
 #### Wireless access network
@@ -95,9 +122,10 @@ Frequency division multiplexing : 신호의 주파수에 따라 보내는 내용
 * wide-area wireless access : 통신사들이 운영하는 기지국을 통해 서비스 하는 네트워크이다.
 -> 3G, 4G, 5G 등
 
-와이파이 vs wide-area(5G)
-와이파이 : 유선 인터넷의 접속 망의 맨 마지막에서 디바이스까지 무선으로 연장한 것으로 설계 자체가 멀리 있는 사용자를 목적으로 한 것이 아니다. 이동 목적 역시 없다(노트북 >> 핸드폰). unlicensed spectrum에 해당하는 주파수를 사용한다.(무료, 데이터 섞일 수 있음(품질 보장 x))
+와이파이 vs wide-area(5G) 
 
+와이파이 : 유선 인터넷의 접속 망의 맨 마지막에서 디바이스까지 무선으로 연장한 것으로 설계 자체가 멀리 있는 사용자를 목적으로 한 것이 아니다. 이동 목적 역시 없다(노트북 >> 핸드폰). unlicensed spectrum에 해당하는 주파수를 사용한다.(무료, 데이터 섞일 수 있음(품질 보장 x))
+ 
 5G : 무선으로 이동하면서 전화 할 수 있도록 만들어진 시스템 에서 발전한 것으로 속도보다 이동성에 중점을 뒀다.(-> 전화보다 데이터 사용위주로 변화됨). licensed spectrum에 해당하는 주파수를 사용한다.(통신사에서 해당 대역을 사서 license를 받아서 사용하니까 유료, 각기 다른 주파수 쓰기 때문에 데이터 관리 가능(품질 보장))
 
 #### Hosts: sends packets of data
@@ -129,7 +157,7 @@ coaxial cable(동축 케이블) : 2개의 구리선. 동심원 형태를 이룸(
 fiber optic cable(광선) : 속도가 빠름. 전자파의 영향이 적고 굉장히 멀리 이동 가능(신호 감쇠가 적음).
 radio : 무선(전자기 스펙트럼을 통한 신호 전달). 환경의 영향을 많이 받음. 간섭이 존재함(반사, 물체의 영향, 간섭 등).
 
-1.3 Network core
+## Network core
 인터넷의 end system 들을 연결하는 패킷 스위치들과 링크들의 연결망
 -> end system 들을 연결 시켜주는 중간역할을 하는 부분
 -> 망 사업자들이 깔아 놓은 router 들의 집합.
@@ -137,13 +165,13 @@ radio : 무선(전자기 스펙트럼을 통한 신호 전달). 환경의 영향
 -> 많은 양의 데이터를 빠른 속도로, 원하는 목적지로 잘 배달해 주는 것이 목적.
 -> packet switching 을 통해 전송
 
-packet switching
+#### packet switching
 패킷이 어디로 보내질 지 결정하는 것이다.
 보내야 할 메세지를 패킷이라는 단위로 나누고 라우터들을 거쳐서 패킷을 전송한다.
 한 라우터로 부터 다음 라우터까지 연결된 회선이 속도가 있어서 속도에 따라 패킷을 전달하게 된다.
 -> 각각의 패킷은 최대 link capacity로 전송된다.
 
-1.3.1 Packet switching : store-and-forward
+###  Packet switching : store-and-forward
 패킷은 store-and-forward 방법을 통해 전달된다.
 패킷을 보내면 일단 라우터에서 받고 어디로 보낼지 판단한 후 그쪽으로 패킷을 전달한다.
 -> 저장 후 전달 방식.
@@ -159,7 +187,7 @@ end to end delay : 2 x L/R (전송 딜레이 무시했을 때)
 라우터가 패킷을 받아서 처리해야 할 문제(경로 어디로 갈지 등)가 있기 때문에 sotre and forward 방식을 사용한다.
 
 
-예시
+### 예시
 L(패킷 비트수) = 7.5M, R(전송률) = 1.5Mbps -> L/R = 5
 -> 총 패킷이 세개라 하면 1번이 라우터에 가는 시간 L/R
 -> 2번이 라우터에 가는시간, 1번이 라우터에서 목적지로 가는 시간 L/R
@@ -168,30 +196,30 @@ L(패킷 비트수) = 7.5M, R(전송률) = 1.5Mbps -> L/R = 5
 -> 총 4 x L/R 시간이 걸림
 -> 만약 store and forward 아니었으면 L/R 만에 다감.
 
-1.3.2 Packet switching : queueing delay, loss
+### Packet switching : queueing delay, loss
 queueing
 라우터가 처리를 해서 다음 라우터로 전달하는 속도 보다 들어오는 속도가 더 빠르면 넘치는 데이터들을 라우터의 버퍼에 쌓는다.
 -> 데이터가 들어오는 속도보다 회선의 속도(나가는 속도)가 느리면 라우터의 메모리(큐)에 패킷이 쌓여서 딜레이가 발생한다.
 -> 네트워크의 혼잡 정도에 따라 달라질 수 있다.
 
-loss
+### loss
 큐 역시 메모리이기 때문에 한계가 있다. 즉, 저장할 수 있는 패킷의 수가 정해져 있기 때문에 큐가 꽉 차면 패킷을 더이상 받지 않고 drop(loss)한다.
 -> 데이터 처리가 느려지고 손실 발생이 가능하다.
 
 
-예시
+### 예시
 A와 B가 100Mb/s의 속도로 패킷을 보내고 있고 라우터에서 나가는 링크의 속도가 1.5Mb/s 일 때 queueing delay가 발생하고, 전송이 느려지게 될 것이다.
 (참고 mbps : 초당 비트수, Mb/s : 초당 바이트수)
 
 
-1.3.3 Two key network-core functions
+###  Two key network-core functions
 네트워크 코어의 주요 function 두개
 
-Routing
+### Routing
 받은 패킷을 목적지 까지 빠르게 전달하기 위해 어디로 보낼지 판단하는 것이다.
 -> 목적지에 따라 경로를 정함
 
-Forwarding
+### Forwarding
 아웃풋 인터페이스가 여러 개 있는데 어디로 보낼지 결정하는 것이다.
 -> 포워딩 테이블을 보고 결정함
 -> 데이터의 Destination address(header value랑 관련)를 보고 어떤 아웃풋 인터페이스로 보낼지 정하는데, 이 때 포워딩 테이블을 보고 판단한다.
@@ -201,7 +229,7 @@ Forwarding
 즉, 패킷의 헤더에 목적지의 주소가 있고, routing algorithm을 통해 forwarding table을 만든 후 라우터에 패킷이 오면 패킷의 목적지 주소와 table의 header value를 보고 output link를 결정하여 내보낸다.
 -> 라우팅 : 경로 생성을 위해 라우터끼리 협력 / 포워딩 : 패킷이 왔을 때 실제 전달하는 기능
 
-1.3.4 Alternative core : circuit switching
+###  Alternative core : circuit switching
 circuit switching
 출발지와 목적지 사이의 경로가 정해지면 필요한 자원들(버퍼, 링크 전송률 등)이 예약된다.
 -> 여러 circuit이 있을 때 라우터들 사이에 어떤 circuit을 사용할지 정하면 다른 애들은 이 circuit을 사용하지 못한다.
@@ -216,44 +244,44 @@ circuit switching
 2. 자원을 공유 안한다.(독립적)
 3. delay와 loss가 완화된다.(자기만의 경로가 정해져 있기 때문에)
 
-Circuit switching : FDM and TDM
+### Circuit switching : FDM and TDM
 
-FDM : frequency division multiplexing
+### FDM : frequency division multiplexing
 -> 회선에 신호가 전달이 될 때 주파수를 분리해 놔서 동시 전송 가능(섞이지 않게)
 -> 미리 정한 주파수만을 사용한다.
 -> 그림에서 유저가 5명이라면 한명은 못사용한다.
 
-TDM : time division multiplexting
+### TDM : time division multiplexting
 -> 모든 대역을 사용하지만 시간으로 나누는거
 -> 마찬가지로 4명의 유저에게 다 할당했으므로 5명이면 한명은 사용 못한다.
 
-1.3.5 Packet switching vs Circuit switching
+###  Packet switching vs Circuit switching
 패킷 스위칭이 공유하기 때문에 많은 사용자가 네트워크를 사용 가능하다.
 
-예시
+### 예시
 
 -> 데이터를 전송할 트래픽이 있을 때 active라 하는데, active 시간이 전체 시간의 10%이다
 -> 전체 시간 중 10%는 보낼 데이터가 있고, 나머지 90%는 보낼 데이터가 없음.
 
-circuit switching
+### circuit switching
 1Mbps 의 link를 사람 당 100Kpbs를 사용하므로 총 10명이 사용할 수 있다.(1M / 1K = 10)
 
-packet switching
+### packet switching
 -> 여러 사용자가 동시에 사용하게 되면 큐잉 딜레이 때문에 늦게 도달할 수 있다.
 -> 하지만 사용자가 35명이라 해도 11명 이상의 인원이 동시에 active할 확률은 0.0004(0.04%)보다 작다.
 -> 많은 사용자가 사용이 가능해져서 효율성이 높아진다.
 
-packet switching vs circuit switching
+### packet switching vs circuit switching
 무조건 패킷이 좋은가?
 
-패킷의 장점
+### 패킷의 장점
 
 트래픽이 균형 잡힌게 아닐 때 자원 공유하면 유리함
 -> 내가 사용 안할 때 다른애가 사용이 가능하니까
 서킷은 자원 예약 과정(call setup)이 필요 하지만 패킷은 이런 과정이 필요 없고 단순하다.
 패킷의 단점
 
-밀리는 문제(큐잉 딜레이, 손실)
+### 밀리는 문제(큐잉 딜레이, 손실)
 -> reliable한 데이터 전송과 congestion control을 위한 프로토콜이 필요하다.
 오디오, 비디오와 같이 bandwidth의 보장이 필요한 경우 패킷은 보장이 안된다.
 1.3.6 Internet structure : network of networks
@@ -264,7 +292,7 @@ Access ISP 끼리 서로 연결 되어있어야 한다.
 네트워크의 네트워크는 매우 복잡하다
 -> 경제적, 국가적 정책에 따라 연결 되었다.
 
-네트워크 구성 방법
+### 네트워크 구성 방법
 수백만개의 access ISP 들이 존재한다. 어떻게 연결할 까?
 
 모든 access ISP 들을 서로 연결해 준다. -> 연결이 너무 많아져서 불가능하다.
@@ -283,13 +311,13 @@ access net을 ISP와 연결해 주는 regional net을 만드는 경우도 있다
 -> 특정 지역에서 여러 가입자 망들한테 자기네 망을 이용하여 ISP를 지원해 주는거 -> 가입자가 regional net한테 돈 내고, regional net이 ISP로 돈 내는거(망 사용료)
 
 
-Content provider network -> 자체적으로 유뷰트 같은 서비스 제공해 주는 네트워크
+### Content provider network -> 자체적으로 유뷰트 같은 서비스 제공해 주는 네트워크
 
 구글은 전 세계에 데이터 센터들이 있고, 이 데이터 센터들을 연결하기 위해 ISP를 사용하지 않고 자기들이 직접 연결함(public 망이 아님(private한 망), 구글 데이터만 이동하게 되어 있음) -> 구글이 사용자에게 서비스 제공할 때는 ISP와 협약 맺음
 
 현재 인터넷 구조(계층적 구조 - 완전한 계층은 아님, 제공자 소비자 구조)
 
-1.4 Delay, loss, throuput in networks
+### Delay, loss, throuput in networks
 -> 성능 측정 지표들
 
 
@@ -303,16 +331,17 @@ Content provider network -> 자체적으로 유뷰트 같은 서비스 제공해
 
 패킷 전송 전에 프로세싱 하는 딜레이(비트 에러 체크, output link 결정) -> 데이터 처리에 걸리는 시간
 보통 1 msec 보다 적게 걸린다.(굉장히 작음)
-queueing delay
+### queueing delay
 전송을 위해 output link를 기다리는 시간(나가기 위해 걸리는 시간 -> 큐 안에서 나가기 까지 걸리는 시간)
 라우터에서 얼마나 밀리는 지에 따라 달라진다.
-transmission delay
+### transmission delay
 dtrans = L/R
 패킷의 모든 비트들을 회선에 올리는 시간 -> 큐에서 link로 모든 비트를 내보내는데 걸리는 시간
-propagation delay
+### propagation delay
 한 비트가 목적지 까지 회선을 따라 이동하는데 걸리는 시간
 d: physical link의 길이, s: propagation 속도 -> dprop = d/s
-예시 1
+
+### 예시 1
 
 자동차의 속도 : 프로파게이션 딜레이와 관련 있음 -> 100km/h 로 가정
 톨 부스 : 라우터 역할 -> 트랜스미션 딜레이와 관련 -> 서비스 하는데 12 sec이 걸린다고 가정
@@ -323,7 +352,7 @@ carvan이 두번째 톨 부스에 줄 서기까지 얼마나 걸릴까(첫 차�
 -> 마지막 차가 첫번째 톨부스에서 두번째 톨부스까지 가는 시간 : 100km를 100km/h로 달리니까 1시간
 -> 전체 걸리는 시간 : 1시간 + 2분 = 62분
 
-예시 2
+### 예시 2
 자동차의 속도 : 1000km/h 로 가정
 톨부스 : 서비스 하는데 1분이 걸린다고 가정
 모든 차가 첫번째 톨부스에서 서비스 되기 전에 차가 두번째 톨부스에 도달 할까?
@@ -338,7 +367,7 @@ carvan이 두번째 톨 부스에 줄 서기까지 얼마나 걸릴까(첫 차�
 -> 차 한대가 2번째 톨에 도달하는 동안 맨 뒤 세대는 아직 첫번째 톨도 통과 못한 상태
 -> 전체 걸리는 시간 : 프로파게이션 딜레이 6분 + 트랜스미션 딜레이(1분 x 10대) = 16분
 
-1.4.1 queueing delay
+###  queueing delay
 R : 회선의 전송 속도 -> 단위시간 동안 보낼 수 있는 데이터의 양(bps)
 L : 패킷의 길이(크기)
 a : 단위시간 당 도착하는 패킷의 개수 -> 1초에 몇개의 패킷이 라우터에 들어오는가
@@ -351,7 +380,7 @@ R : traffic이 나가는 속도
 -> La/R = 1 : 비율은 같아서 들어오는 속도가 일정하다면 딜레이가 없을 수 있지만, 라우터로 들어올 때 일정하게 들어오는 것이 아니라 어느 때는 많이, 어느 때는 적게 들어오기 때문에(들어오는 패턴이 랜덤) 한꺼번에 트래픽이 몰리게 되면 그 순간에 queueing이 생기게 되어 delay가 커진다.
 -> La/R > 1 : 들어오는 속도가 더 크기 떄문에 queue는 끝없이 증가하고, drop이 없다고 가정하면 기다리는 시간이 무한해 진다.
 
-1.4.2 packet loss
+### packet loss
 
 큐는 유한한 용량을 가지고 있다.
 큐가 가득 차게 되면 더이상 패킷 못받으니까 패킷이 드랍된다.
