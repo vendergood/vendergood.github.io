@@ -11,7 +11,7 @@ featured_image: '/images/under-construction.jpg'
 ## 인터넷이란?
 
 ### 인터넷이란? : 구성요소 관점
-computing device 사이에는 엄청나게 많은 연결이 존재한다.
+* computing device 사이에는 엄청나게 많은 연결이 존재한다.
 -> 이러한 장치들을 host 또는 end system 이라고 부른다.
 -> 서버, PC, 패킷 교환기(router, switch), 기지국 등의 장치들이 있다.
 -> end system 들은 Communication link 와 Packet switch를 통해 거미줄처럼 모두 연결되어 있다.
